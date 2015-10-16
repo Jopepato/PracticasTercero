@@ -1,6 +1,7 @@
 #include "funciones.hpp"
 #include "matriz.hpp"
 #include "ClaseTiempo.hpp"
+#include "estimaciones.hpp"
 
 //Aqui haremos lo de las matrices recursivas e iterativas
 int main(int argc, char ** argv){
@@ -16,13 +17,13 @@ int main(int argc, char ** argv){
 	double det;
 	vector<int> vectTiempoMedRecur;
 	vector<int> vectTiempoMedIterat;
-	vector<int> auxV;
+	vector<int> auxVRecur, auxVIter;
 	vector<int> muestras;
 	double tiempo=0;
 	//double tiempoTotalRecur=0.0;
 
-	Clock detIterat;
-	Clock detRecur;
+	Clock relojIterat;
+	Clock relojRecur;
 	
 	//Pasamos los parametros de comandos a las variables
 	minNivel = atoi(argv[1]);
@@ -30,8 +31,6 @@ int main(int argc, char ** argv){
 	incremento = atoi(argv[3]);
 	repeticion = atoi(argv[4]);
 
-	//Declaramos la matriz
-	Matriz<int> m(n,n);
 	cout << "Introduce el numero minimo del aleatorio: ";
 	cin >> a;
 	cout << "Introduce el numero maximo del aleatorio: ";
@@ -45,21 +44,31 @@ int main(int argc, char ** argv){
 			rellenaMatriz(auxM,i,i,a,b);
 			auxM.verMatriz();
 
-			detRecur.start();
+			relojRecur.start();
 			determRecursivo(auxM,i);
-			detRecur.stop();
-			tiempo = detRecur.elapsed();
-			auxV.push_back(tiempo);
+			relojRecur.stop();
+			tiempo = relojRecur.elapsed();
+			auxVRecur.push_back(tiempo);
+			
 			//Cogemos el tiempo del iterativo
+
+			relojIterat.start();
+			determIterativo(auxM, i);
+			relojIterat.stop();
+			tiempo = relojIterat.elapsed();
+			auxVIter.push_back(tiempo);
 		}
-		vectTiempoMedRecur.push_back(mediaVector(auxV));
-		auxV.clear();
+		vectTiempoMedRecur.push_back(mediaVector(auxVRecur));
+		vectTiempoMedIterat.push_back(mediaVector(auxVIter));
+		auxVRecur.clear();
+		auxVIter.clear();
 		muestras.push_back(i);
 	}
 	//Calculamos el determinante recursivo
 	//Mostramos el vector de tiempos, junto con el vector de muestras
 	muestraVector(muestras);
 	muestraVector(vectTiempoMedRecur);
+	muestraVector(vectTiempoMedIterat);
 
 
 return 0;
