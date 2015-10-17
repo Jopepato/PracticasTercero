@@ -89,7 +89,7 @@ double determIterativo(Matriz <T> &a, const int &n) {
 //Funciones genericas
 
 template <class T>
-double mediaVector(vector<T> &v){
+double mediaVector(const vector<T> &v){
 	//Hace la media de un vector V
 	double total=0.0, media=0.0;
 	for(int i=0; i<v.size(); i++){
@@ -100,7 +100,7 @@ double mediaVector(vector<T> &v){
 }
 
 template <class T>
-double varianzaVector(vector<T> &v, T media){
+double varianzaVector(const vector<T> &v,const T &media){
 	//Sumatorio del elemento menos la media al cuadrado
 	double varianza=0.0;
 	for(int i=0; i<v.size(); i++){
@@ -125,7 +125,7 @@ void muestraVector(vector<T> &v){
 }
 
 template <class T>
-double sumatorioVector(vector<T> &v){
+double sumatorioVector(const vector<T> &v){
 	//Sumatorio de un vector
 	double suma=0.0;
 	
@@ -215,6 +215,7 @@ double sumatoriox3yVector(const vector<T> &x,const vector<T> &y){
 	}
 	return sumax3y;
 }
+
 
 
 #endif
