@@ -1,61 +1,39 @@
 /*!
 
     g++ -Wall -o ecuImg ecuImg.cc funciones.cc `pkg-config opencv --cflags --libs`
-
-	José Enrique Ortega Ortega OPC2
 */
 
 
-#include "ecuImg.hpp"
+#include "funciones.hpp"
 
 //Caclculo el histograma sin la mascara o con la mascara si la hubiera
-void crearHistograma(vector <double> &histograma, const Mat imagen, const Mat mask)
+void crearHistograma(vector <double> &histograma, const Mat &imagen, const Mat &mask)
 {
+	int valor;
 
 	//La inicializo a 0
 	for(size_t i=0; i<histograma.size();i++)
 		histograma[i]=0;
-		
-		
+			
 	//Trabajo con 1 o con 3 canales
-	if (imagen.channels()==1){
-		
 		for(int x=0; x<imagen.rows; x++)
 			for(int y=0; y<imagen.cols; y++){
+				if(imagen.channels()==1)
+					valor = imagen.at<uchar>(x,y);
+				else
+					valor = imagen.at<Vec3b>(x,y)[2];
 				if(mask.data)
 				{
 					if(mask.at<uchar>(x,y)!= 0)
 					{
-						int valor = imagen.at<uchar>(x,y);
 						histograma[valor]++;
 					}
 				}
 				else
 				{
-					int valor = imagen.at<uchar>(x,y);
 					histograma[valor]++;
 				}
 			}
-		}
-	if(imagen.channels()==3){
-		
-		for(int x=0; x<imagen.rows; x++)
-			for(int y=0; y<imagen.cols; y++){
-				if(mask.data)
-				{
-					if(mask.at<uchar>(x,y) != 0)
-					{
-						int valor = imagen.at<Vec3b>(x,y)[2];
-						histograma[valor]++;
-					}
-				}
-				else
-				{
-					int valor = imagen.at<Vec3b>(x,y)[2];
-					histograma[valor]++;
-				}
-			}
-		}
 	
 }
 
@@ -81,7 +59,7 @@ void normalizar(vector <double> &histograma)
 }
 
 //Ecualización de la imagen utilizando para ello el histograma por normalizacion
-void ecualizar(vector<double> histograma, Mat &imagen, Mat mask)
+void ecualizar(vector<double> histograma, Mat &imagen, const Mat &mask)
 {
 
 	if(imagen.channels()==1){
@@ -121,4 +99,36 @@ void ecualizar(vector<double> histograma, Mat &imagen, Mat mask)
 	
 }
 
-//MIRAR https://es.scribd.com/doc/94351721/2/Histograma-y-Ecualizacion-del-Histograma
+void ecualizarRadio(vector<double> histograma, Mat &imagen, Mat & salida, const Mat &mask, int x, int y){
+
+
+					if(imagen.channels() == 3)
+				{	
+
+					if (mask.data)
+					{
+						if(mask.at<uchar>(x,y)!=0){
+							int valor = salida.at<Vec3b>(x,y)[2];
+							salida.at<Vec3b>(x,y)[2] = histograma[valor];
+						}
+					}else{
+						int valor = salida.at<Vec3b>(x,y)[2];
+						salida.at<Vec3b>(x,y)[2] = histograma[valor];
+					}
+				}
+				else if(imagen.channels() == 1)
+				{
+					if (mask.data)
+					{
+						if(mask.at<uchar>(x,y)!=0){
+							int valor = salida.at<uchar>(x,y);
+							salida.at<uchar>(x,y) = histograma[valor];
+						}
+					}else{
+							int valor = salida.at<uchar>(x,y);
+							salida.at<uchar>(x,y) = histograma[valor];
+					}
+
+				}
+}
+
