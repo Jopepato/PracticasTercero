@@ -1,25 +1,24 @@
-#ifndef FUNCIONES_HPP
-#define FUNCIONES_HPP
+/*!
+	@author Ruben
+	@file funciones.cpp
+	@brief Definicion de las funciones basicas para el procesado de los datos
+*/
 
 
-#include "matriz.hpp"
-#include <cmath>
-#include "fstream"
+#include "funciones.hpp"
+#include <cstdlib>
+#include <cassert>     /* assert */
+#include <fstream>
+#include <iostream>
 
-template <class T>
-void rellenaMatriz( Matriz <T> &m, const int &fil, const int &col, const int &a, const int &b){
+using namespace std;
 
-    //Matriz <T> aux(fil,col);
+void rellenarVector(vector<int> &v, const int &n){
 
-    for (int i = 1; i <= fil; ++i)
-    {
-        for (int j = 1; j <= col; ++j)
-        {
-            m.elemento(i,j,rand()%(b-a)+a);
-        }
-    }
-    m.filas(fil);
-    m.columnas(col);
+	for (int i = 0; i < n; ++i)
+	{
+		v.push_back(rand()%10000);
+	}
 }
 
 double calculaMedia(vector<uint64_t> &tiempos){
@@ -32,6 +31,15 @@ double calculaMedia(vector<uint64_t> &tiempos){
 		suma+=(double)tiempos[i];
 	}
 	return suma/n;
+}
+
+bool estaOrdenado(const vector <int> v){
+
+	for (int i = 1; i < v.size(); ++i)
+	{
+			assert(v[i]>=v[i-1]);
+	}
+	return true;
 }
 
 void guardarTiempos(const vector<double> n, const vector<double> &tNS, const vector<double> &tNSE, const vector<double> &tS, const vector <double> &tSE, string fichero){
@@ -49,4 +57,3 @@ void guardarTiempos(const vector<double> n, const vector<double> &tNS, const vec
 	}
 	f.close();
 }
-#endif
