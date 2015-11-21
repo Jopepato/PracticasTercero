@@ -260,7 +260,7 @@ int getPartida(struct partida arrayPartidas[], int descriptor){
 	return -1;
 }
 
-int compruebaLinea(int carton[3][9], int bolas[], int numBolas){
+int compruebaLinea(int ** carton, int bolas[], int numBolas){
 	int i,j;
 	int contador=0;
 	for(i=0; i<3; i++){
@@ -279,7 +279,7 @@ int compruebaLinea(int carton[3][9], int bolas[], int numBolas){
 	return 0;
 }
 
-int compruebaDosLineas(int carton[3][9], int bolas[], int numBolas){
+int compruebaDosLineas(int ** carton, int bolas[], int numBolas){
 	int i,j;
 	int contador=0, contadorLineas=0;
 
@@ -302,7 +302,7 @@ int compruebaDosLineas(int carton[3][9], int bolas[], int numBolas){
 	}
 }
 
-int compruebaBingo(int carton[3][9], int bolas[], int numBolas){
+int compruebaBingo(int ** carton, int bolas[], int numBolas){
 	int i,j;
 	int contador=0, contadorLineas=0;
 
@@ -393,40 +393,35 @@ void cartonABuffer(char * buffer, int ** carton){
 	strcat(buffer, "\n");
 }
 
-void bufferACarton(int ** carton, char * buffer){
+void muestraBufferCartonBonito(char * buffer){
 	//Reservamos memoria para el carton
-	int i,j, contador=7;
+	int i=0,j=0;
 	char aux[50];
-	char bufferDef[200];
-	char * numero;
-	carton = (int **)malloc(3*sizeof(int*));
-	for(i=0; i<3; i++){
-		carton[i] = (int*)malloc(9*sizeof(int));
-	}
+	char bufferDef[500];
 
-	strncpy(bufferDef, buffer+7, 200);
-	//Usare el contador para ir cogiendo los numeros
-	for(i=0; i<3; i++){
-		for(j=0; j<9; j++){
-			
-			if(i==2 && j==8){
-				numero = strtok(bufferDef, "|");
-			}else{
-				if(j<8){
-					numero = strtok(bufferDef, ",");
-				}else{
-					numero = strtok(bufferDef, ";");
-				}
-			}
-			if(strcmp(numero, "X")==0){
-				carton[i][j] = 0;
-			}else{
-				carton[i][j] = atoi(numero);
-			}
-			printf("%d\n", carton[i][j]);
-			bzero(bufferDef, sizeof(bufferDef));
-			strncpy(bufferDef, buffer+7+strlen(numero), 200);
-		}
-	}
+	strncpy(bufferDef, buffer+5, 500);
+  	char * pch;
+  	pch = strtok (bufferDef,"|,;");
+  	while (pch != NULL){
+   		
+   		pch = strtok (NULL, "|,;");
+   		if(strcmp(pch, "X")==0){
+   			printf("\033[31m%s\t", pch);
+   		}else{
+   			printf("\033[32m%s\t",pch);
+   		}
+   		j++;
+   		if(j==9){
+   			printf("\n");
+   			i++;
+   			j=0;
+   		}
+   		if(i==3 && j==0){
+   			//Aqui ya ha terminado de rellenar la matriz
+   			break;
+   		}
+
+  	}
+  	printf("\e[0m");
 	
 }

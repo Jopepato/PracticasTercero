@@ -82,16 +82,9 @@ int main ()
 
             strcpy(buffer2, buffer);
             opcion = strtok(buffer2, "|");
-            //printf("\n%s\n", opcion);
             if(strcmp(opcion, "CARTON")==0){
             	//Hemos recibido el carton y lo tenemos que mostrar de forma bonita
-            	bufferACarton(carton, buffer);
-            	muestraCarton(carton);
-            	//Y liberamos el carton
-            	for(f=0; f<3; f++){
-            		free(carton[f]);
-            	}
-            	free(carton);
+            	muestraBufferCartonBonito(buffer);
 
             }else{
 
