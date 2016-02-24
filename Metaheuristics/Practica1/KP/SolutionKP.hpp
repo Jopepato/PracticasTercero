@@ -4,6 +4,12 @@
 #include <vector>
 #include "InstanceKP.hpp"
 
+struct knapsack{
+	int price;
+	int weight;
+	bool token;
+};
+
 class SolutionKP{
 
 private:

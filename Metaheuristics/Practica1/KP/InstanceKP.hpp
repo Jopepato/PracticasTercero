@@ -3,17 +3,13 @@
 
 #include <vector>
 #include <string>
-
-struct knapsack{
-	int price;
-	int weight;
-	bool token;
-};
+#include "SolutionKP.hpp"
 
 class InstanceKP{
 	private:
 		std::string fileName_;
 		int capacity_;
+		SolutionKP solucion_;
 		
 	public:
 
@@ -46,7 +42,15 @@ class InstanceKP{
 			return capacity_;
 		}
 
-		std::vector<knapsack> readFile();
+		inline void setSolutionKP(const std::vector<knapsack>& solucion){
+			solucion_.setSolution(solucion);
+		}
+
+		inline std::vector<knapsack> getSolutionKP() const{
+			return (solucion_.getSolution());
+		}
+
+		void readFile();
 
 		int getPrice(const std::vector<knapsack> vectorSolution);
 };

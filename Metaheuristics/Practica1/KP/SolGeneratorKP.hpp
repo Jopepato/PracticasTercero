@@ -11,11 +11,21 @@ private:
 	int weightAux_;
 	SolutionKP sol_;
 public:
-	void printSol(const vector<knapsack> &v);
-	bool compareSol(const vector<knapsack> &v, const int &weigth);
-	void generateSol(const vector<knapsack> &v);
 
-	int getWeight(const vector<knapsack> &v);
+	SolGeneratorKP(){
+		setWeight(0);
+	}
+
+	SolGeneratorKP(const InstanceKP& instancia){
+		setWeight(instancia.getCapacity());
+		setSolutionKP(instancia.getSolutionKP());
+	}
+
+	void printSol();
+	bool compareSol(const std::vector<knapsack> &v, const int &weigth);
+	void generateSol(InstanceKP instancia);
+
+	int getWeight(const std::vector<knapsack> &v);
 
 	inline int getWeight()const{
 		return weightAux_;
@@ -24,6 +34,15 @@ public:
 	inline void setWeight(const int &w){
 		weightAux_=w;
 	};
+
+	inline void setSolutionKP(const std::vector<knapsack>& solucion){
+		sol_.setSolution(solucion);
+	}
+
+	inline std::vector<knapsack> getSolutionKP() const{
+		return (sol_.getSolution());
+	}
 };
+
 
 #endif

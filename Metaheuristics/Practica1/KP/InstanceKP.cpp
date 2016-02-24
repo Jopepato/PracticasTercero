@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 //A function that read a file
-std::vector<knapsack> InstanceKP::readFile(){
+void InstanceKP::readFile(){
 
 	struct knapsack aux;
 	std::vector<knapsack> vectorRead;
@@ -37,12 +37,13 @@ std::vector<knapsack> InstanceKP::readFile(){
 			getline(file, line, '\n');
 
 			//Now we push this data in the vector
+			aux.token=false;
 			vectorRead.push_back(aux);
 		}
 
 		//Everything is in the vector now :D
 		file.close();
-		return vectorRead;
+		setSolutionKP(vectorRead);
 		
 	}else{
 		std::cout << "An error has ocurred" << std::endl;
