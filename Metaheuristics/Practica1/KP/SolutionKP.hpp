@@ -17,7 +17,7 @@ private:
 
 public:
 		SolutionKP(){
-
+			vectorKnapsack_.clear();
 		}
 
 		SolutionKP(const std::vector<knapsack> &vectorKnapsack){
