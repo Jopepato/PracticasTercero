@@ -19,8 +19,7 @@ int main(){
 			fileName = "ch150.tsp";
 			break;
 		case 3:
-			std::cout << std::endl << "I can't take the exponent :<" << std::endl << std::endl;
-			exit(EXIT_SUCCESS);
+			fileName = "d2103.tsp";
 			break;
 		default:
 			fileName = "berlin52.tsp";

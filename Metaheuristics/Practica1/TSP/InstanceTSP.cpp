@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
+#include <cmath>
 
 
 void InstanceTSP::readFile(){
@@ -10,6 +11,10 @@ void InstanceTSP::readFile(){
 	std::vector<node> vectorRead;
 	std::ifstream file;
 	std::string line;
+	std::size_t found;
+	std::size_t length;
+	float auxNumber;
+	char buffer[20];
 	int nLines;
 
 	file.open(getFilename().c_str());
@@ -29,9 +34,40 @@ void InstanceTSP::readFile(){
 		for(int i=0; i<nLines; i++){
 			getline(file, line, ' ');
 			getline(file, line, ' ');
-			aux.x = atof(line.c_str());
+			//We check for an e
+			found = line.find('e');
+			if(found != std::string::npos){
+				//We have found an e
+				length = line.copy(buffer, found-1, 0);
+				buffer[length] = '\0';
+				auxNumber = atof(buffer);
+				length = line.copy(buffer, found+1, line.length());
+				buffer[length] = '\0';
+				pow(auxNumber, atoi(buffer));
+				aux.x = auxNumber;
+
+			}else{
+				//We haven't found and 'e' so we continue as usual
+				aux.x = atof(line.c_str());
+			}
+
+			//Now we hcve to do it for the component y
 			getline(file, line, '\n');
-			aux.y = atof(line.c_str());
+			found = line.find("e");
+			if(found != std::string::npos){
+				//We have found an e
+				length = line.copy(buffer, found-1, 0);
+				buffer[length] = '\0';
+				auxNumber = atof(buffer);
+				length = line.copy(buffer, found+1, line.length());
+				buffer[length] = '\0';
+				pow(auxNumber, atoi(buffer));
+				aux.y = auxNumber;
+				
+			}else{
+				//We haven't found and 'e' so we continue as usual
+				aux.y = atof(line.c_str());
+			}
 
 			//Now we push this data in the vector
 			vectorRead.push_back(aux);
