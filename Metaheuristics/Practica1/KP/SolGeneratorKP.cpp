@@ -2,20 +2,20 @@
 #include <iostream>
 
 
-
 	void SolGeneratorKP::printSol(){
 		//This prints the vector
 		std::vector<knapsack> aux = getSolutionKP();
 		InstanceKP instancia;
-		/* Fuck this shit
+		// Fuck this shit
+		/*
 		for(int i =0; i<aux.size(); i++){
 			if(aux[i].token==true){
 				std::cout << i << ", " << aux[i].price << ", " << aux[i].weight << std::endl;
 			}
 		}
 		*/
-		std::cout << std::endl << "Precio total: " << instancia.getPrice(aux) << std::endl;
-		std::cout << "Peso total: " << getWeight(aux) << std::endl;
+		std::cout << std::endl << "Total price: " << instancia.getPrice(aux) << std::endl;
+		std::cout << "Total Weight: " << getWeight(aux) << std::endl;
 
 	}
 	bool SolGeneratorKP::compareSol(const std::vector<knapsack> &v, const int &weigth){
@@ -42,6 +42,7 @@
 				}
 			}
 			if(instancia.getPrice(aux)>instancia.getPrice(getSolutionKP())){
+				std::cout << std::endl << "Iteration " << i;
 				setSolutionKP(aux);
 				printSol();
 			}

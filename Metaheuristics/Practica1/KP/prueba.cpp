@@ -22,7 +22,7 @@ int main(){
 			fileName = "knapPI_1_10000_1000000.csv";
 			break;
 		default:
-			fileName = "knapPI_12_500_1000.csv";
+			fileName = "knapPI_1_10000_1000000.csv";
 			break;
 	}
 
