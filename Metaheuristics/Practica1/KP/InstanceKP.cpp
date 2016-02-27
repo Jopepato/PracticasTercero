@@ -9,7 +9,6 @@ void InstanceKP::readFile(){
 	std::vector<knapsack> vectorRead;
 	std::ifstream file;
 	std::string line;
-	int accountant;
 	int nLines;
 
 	file.open(getFileName().c_str());
@@ -57,7 +56,7 @@ void InstanceKP::readFile(){
 int InstanceKP::getPrice(const std::vector<knapsack> vectorSolution){
 	//Here we calculate the price of the kanpsack
 	int price=0;
-	for(int i=0; i<vectorSolution.size(); i++){
+	for(unsigned int i=0; i<vectorSolution.size(); i++){
 		if(vectorSolution[i].token == true){
 			//This element is in the pack
 			price += vectorSolution[i].price; 

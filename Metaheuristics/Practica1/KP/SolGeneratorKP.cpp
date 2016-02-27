@@ -1,6 +1,8 @@
 #include "SolGeneratorKP.hpp"
 #include <iostream>
 
+
+
 	void SolGeneratorKP::printSol(){
 		//This prints the vector
 		std::vector<knapsack> aux = getSolutionKP();
@@ -13,7 +15,7 @@
 		}
 		*/
 		std::cout << std::endl << "Precio total: " << instancia.getPrice(aux) << std::endl;
-		std::cout << "Peso total: " << getWeight() << std::endl;
+		std::cout << "Peso total: " << getWeight(aux) << std::endl;
 
 	}
 	bool SolGeneratorKP::compareSol(const std::vector<knapsack> &v, const int &weigth){
@@ -23,7 +25,6 @@
 		bool exit=false;
 		std::vector<knapsack> aux = instancia.getSolutionKP();
 		int index;
-		srand(time(NULL));
 
 		for (int i = 0; i < 1000; ++i)
 		{
@@ -48,8 +49,8 @@
 	}
 
 	int SolGeneratorKP::getWeight(const std::vector<knapsack> &v){
-		int result;
-		for (int i = 0; i < v.size(); ++i)
+		int result=0;
+		for (unsigned int i = 0; i < v.size(); i++)
 		{
 			if(v[i].token==true)
 				result+=v[i].weight;
