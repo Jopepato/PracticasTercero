@@ -14,11 +14,13 @@ public:
 
 	SolGeneratorKP(){
 		setWeight(0);
+		srand(time(NULL));
 	}
 
 	SolGeneratorKP(const InstanceKP& instancia){
 		setWeight(instancia.getCapacity());
 		setSolutionKP(instancia.getSolutionKP());
+		srand(time(NULL));
 	}
 
 	void printSol();

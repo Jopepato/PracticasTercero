@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "SolutionTSP.hpp"
 
 //Are they coordenadas? :(
 
@@ -10,7 +11,7 @@
 class InstanceTSP{
 	private:
 		std::string filename_;
-		int dimension_;
+		SolutionTSP solution_;
 
 	public:
 
@@ -18,26 +19,25 @@ class InstanceTSP{
 			filename_ = "berlin52.tsp";
 		}
 
-		InstanceTSP(const string &filename){
+		InstanceTSP(const std::string &filename){
 			setFilename(filename);
 		}
 
 		//Get and Set for filename
-		void setFilename(const string &filename){
+		void setFilename(const std::string &filename){
 			filename_ = filename;
 		}
 
-		string getFilename() const{
+		std::string getFilename() const{
 			return filename_;
 		}
 
-		//Get and set for dimension
-		void setDimension(const int &dimension){
-			dimension_ = dimension;
+		inline void setSolutionTSP(const std::vector<node>& solution){
+			solution_.setSolution(solution);
 		}
 
-		int getDimension()const{
-			return dimension_;
+		inline std::vector<node> getSolutionTSP() const{
+			return (solution_.getSolution());
 		}
 
 		void readFile();

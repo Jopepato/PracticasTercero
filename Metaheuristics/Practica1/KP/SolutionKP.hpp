@@ -2,9 +2,6 @@
 #define SOLUTIONKP_HPP_
 
 #include <vector>
-#include <time.h>
-#include <cstdlib>
-#include "InstanceKP.hpp"
 
 struct knapsack{
 	int price;
@@ -20,7 +17,6 @@ private:
 public:
 		SolutionKP(){
 			vectorKnapsack_.clear();
-			srand(time(NULL));
 		}
 
 		SolutionKP(const std::vector<knapsack> &vectorKnapsack){
