@@ -6,6 +6,7 @@
 int main(){
 	std::string fileName;
 	int option;
+	double optimalDistance;
 	
 	//Ask the user which one we want to read
 	std::cout << "File? " << std::endl << "\t1) 52 nodes" << std::endl <<"\t2) 150 nodes"
@@ -30,7 +31,12 @@ int main(){
 
 	instance.readFile();
 
+
+
 	SolGeneratorTSP generator(instance);
+		//cout the optimal distance
+	optimalDistance = generator.getDistance(instance.getSolutionTSP());
+	std::cout << "Optimal distance inside: " << optimalDistance << std::endl << std::endl;
 	generator.generateSol(instance);
 
 	return 1;

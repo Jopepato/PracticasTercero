@@ -8,17 +8,15 @@
 		bool exit=false;
 		std::vector<node> aux = instancia.getSolutionTSP();
 		std::vector<node> path;
-		struct node nodeBegin, nodeEnd, nodeAux;
+		struct node nodeBegin, nodeAux;
 		int index, elem;
 
 		nodeBegin = aux[0];
-		nodeEnd = aux[aux.size()-1];
 		for (int i = 0; i < 1000; ++i)
 		{
 			exit=false;
 			aux = instancia.getSolutionTSP();
 			aux.erase(aux.begin());
-			aux.erase(aux.end()-1);
 			path.clear();
 			path.push_back(nodeBegin);
 			while(exit!=true){
@@ -32,7 +30,6 @@
 					exit=true;
 				}
 			}
-			path.push_back(nodeEnd);
 			if(getDistance(path)<getDistance()){
 				std::cout << std::endl << "Iteration " << i;
 				setSolutionTSP(path);
