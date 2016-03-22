@@ -41,8 +41,8 @@ public:
 		sol_.setSolution(solucion);
 	}
 
-	inline std::vector<knapsack> getSolutionKP() const{
-		return (sol_.getSolution());
+	inline SolutionKP getSolutionKP() const{
+		return (sol_);
 	}
 };
 

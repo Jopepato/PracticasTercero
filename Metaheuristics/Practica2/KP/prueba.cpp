@@ -2,11 +2,17 @@
 #include "SolutionKP.hpp"
 #include "SolGeneratorKP.hpp"
 #include <iostream>
+
+#include "FINeighExploratorKP.hpp"
+#include "BINeighExploratorKP.hpp"
+#include "LocalSearchKP.hpp"
+
 int main(){
 	std::string fileName;
 	int option;
-	//std::vector<knapsack> sol;
-	
+	SolutionKP sol;
+
+
 	//Ask the user which one we want to read
 	std::cout << "File? " << std::endl << "\t1) 200 elements" << std::endl <<"\t2) 500 elements"
 	 << std::endl << "\t3) 10000 elements" << std::endl;
@@ -32,13 +38,21 @@ int main(){
 
 	SolGeneratorKP generator(instance);
 	generator.generateSol(instance);
-	//sol = instance.getSolutionKP();
-	/*
-	for(int i =0; i<sol.size(); i++){
-		std::cout << i << ", " << sol[i].price << ", " << sol[i].weight << std::endl;
-	}
-	*/
+	sol = generator.getSolutionKP();
+	
+	FINeighExploratorKP fifiu (sol, instance.getCapacity() );
+	LocalSearchKP loloko ( sol, instance.getCapacity() );
+	BINeighExploratorKP bibifidus (sol, instance.getCapacity());
 
+	sol = fifiu.getFirstImprovement();
+	sol.printSol();
+
+	sol = loloko.getOptimal();
+	sol.printSol();
+
+	sol = bibifidus.getBestImprovement();
+	sol.printSol();
+	
 
 	return 1;
 }

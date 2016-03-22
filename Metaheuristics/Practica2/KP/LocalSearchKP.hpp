@@ -3,7 +3,7 @@
 
 #include "SolutionKP.hpp"
 
-class localSearchKP(){
+class LocalSearchKP{
 
 
 	private:
@@ -12,7 +12,7 @@ class localSearchKP(){
 
 	public:
 
-		localSearchKP(sol, cap){
+		LocalSearchKP(const SolutionKP &sol, const int &cap){
 			setSol(sol);
 			setCapacity(cap);
 		}
@@ -30,7 +30,7 @@ class localSearchKP(){
 		};
 
 		inline void setCapacity(const int &capacity){
-			capacity_ = cap;
+			capacity_ = capacity;
 		};
 
 		//Method that gets the local optimal

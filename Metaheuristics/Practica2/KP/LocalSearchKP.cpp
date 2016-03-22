@@ -9,11 +9,11 @@ SolutionKP LocalSearchKP::getOptimal(){
 	SolutionKP best;
 	std::vector<knapsack> auxV = getSol().getSolution();
 
-	for(int i=0; i<auxV.length(), i++){
-		//En cada paso cambias una y te quedas con la mejor solucion
+	for(unsigned int i=0; i<auxV.size(); i++){
+		// In each step, you change one and you pick the best one.
 
 		//This is pauperrim
-		auxV.token = !auxV.token;
+		auxV[i].token = !auxV[i].token;
 
 		aux.setSolution(auxV);
 
@@ -22,7 +22,7 @@ SolutionKP LocalSearchKP::getOptimal(){
 		}
 
 		//We change it back :D
-		auxV.token = !auxV.token;
+		auxV[i].token = !auxV[i].token;
 	}
 
 	setSol(best);

@@ -32,13 +32,13 @@ class FINeighExploratorKP{
 	};
 
 	SolutionKP getFirstImprovement(){
-		SolutionKP aux = sol;
+		SolutionKP aux = getFirst();
 		NeighOperatorKP ope;
 
 		for (int i = 0; i < 1000; ++i)
 		{
 			aux = ope.getNeighSolution(aux, getCapacity());
-			if(aux.getPrice()> sol.getPrice()){
+			if(aux.getPrice()> getFirst().getPrice()){
 				setFirst(aux);
 				break;
 			}

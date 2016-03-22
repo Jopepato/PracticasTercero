@@ -2,6 +2,7 @@
 #define SOLUTIONKP_HPP_
 
 #include <vector>
+#include <iostream>
 
 struct knapsack{
 	int price;
@@ -53,6 +54,15 @@ public:
 
 			return price;
 		};
+
+		inline void printSol(){
+		//This prints the vector
+			std::vector<knapsack> aux = getSolution();
+
+			std::cout << std::endl << "Total price: " << getPrice() << std::endl;
+			std::cout << "Total Weight: " << getWeight() << std::endl;
+
+		}
 };
 
 #endif

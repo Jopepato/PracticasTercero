@@ -6,6 +6,7 @@
 #include <time.h>
 
 #include <vector>
+#include <iostream>
 
 class NeighOperatorKP{
 
@@ -15,16 +16,15 @@ class NeighOperatorKP{
 		std::vector <knapsack> aux = sol.getSolution();
 		SolutionKP ret;
 		SolGeneratorKP generator;
+		bool flag=false;
+
 
 		do{
-			int a = rand()%aux.length();
-
-			if(aux[a].token == true){
-				aux[a].token = false;
-			}else{
-				aux[a].token = true;
-			}
+			int a = rand()%aux.size();
+			aux[a].token = !aux[a].token;
 			ret.setSolution(aux);
+			std::cout<<"hola"<<std::endl;
+			ret.printSol();
 
 		}while(ret.getWeight() > capacity);
 

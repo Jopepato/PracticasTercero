@@ -11,7 +11,7 @@ class BINeighExploratorKP{
 	public:
 	
 	BINeighExploratorKP(const SolutionKP &sol, const int &c){
-		setFirst(sol);
+		setBest(sol);
 		setCapacity(c);
 	};
 
@@ -32,14 +32,14 @@ class BINeighExploratorKP{
 	};
 
 	SolutionKP getBestImprovement(){
-		SolutionKP aux = sol;
+		SolutionKP aux = getBest();
 		NeighOperatorKP ope;
 
 		for (int i = 0; i < 1000; ++i)
 		{
 			aux = ope.getNeighSolution(aux, getCapacity());
-			if(aux.getPrice()> sol.getPrice()){
-				setFirst(aux);
+			if(aux.getPrice()> getBest().getPrice()){
+				setBest(aux);
 			}
 		}
 		return getBest();
