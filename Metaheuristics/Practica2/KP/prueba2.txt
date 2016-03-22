@@ -1,0 +1,40 @@
+File? 
+	1) 200 elements
+	2) 500 elements
+	3) 10000 elements
+
+Iteration 0
+Total price: 50022788
+Total Weight: 49379599
+
+Iteration 13
+Total price: 50678694
+Total Weight: 49397006
+
+Iteration 33
+Total price: 52486366
+Total Weight: 48984737
+
+Iteration 54
+Total price: 55033198
+Total Weight: 49197908
+
+Iteration 86
+Total price: 58279681
+Total Weight: 49234601
+
+Iteration 148
+Total price: 61914623
+Total Weight: 49334151
+
+Iteration 272
+Total price: 62333603
+Total Weight: 49310557
+
+Iteration 410
+Total price: 62793928
+Total Weight: 49412805
+
+Iteration 437
+Total price: 64396863
+Total Weight: 49373397
