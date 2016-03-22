@@ -47,13 +47,13 @@ int main(){
 
 	sol = first.getFirstImprovement();
 	sol.printSol();
-/*
-	sol = loloko.getOptimal();
+
+	sol = local.getOptimal();
 	sol.printSol();
 
-	sol = bibifidus.getBestImprovement();
+	sol = best.getBestImprovement();
 	sol.printSol();
-*/
+
 
 	return 1;
 }

@@ -34,10 +34,11 @@ class BINeighExploratorKP{
 	SolutionKP getBestImprovement(){
 		SolutionKP aux = getBest();
 		NeighOperatorKP ope;
+		SolutionKP initial =getBest();
 
 		for (int i = 0; i < 1000; ++i)
 		{
-			aux = ope.getNeighSolution(aux, getCapacity());
+			aux = ope.getNeighSolution(initial, getCapacity());
 			if(aux.getPrice()> getBest().getPrice()){
 				setBest(aux);
 			}

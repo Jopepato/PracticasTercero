@@ -17,12 +17,20 @@ class NeighOperatorKP{
 		SolutionKP ret;
 		SolGeneratorKP generator;
 		int a;
-		//bool flag=false;
-
+		bool flag=false;
+		do{
 			a = std::rand()%aux.size();
-			//std::cout << a << std::endl;
 			aux[a].token = !aux[a].token;
 			ret.setSolution(aux);
+			if (ret.getWeight()>capacity)
+			{
+				aux[a].token = !aux[a].token;
+				ret.setSolution(aux);
+			}else{
+				flag=true;
+			}
+		
+		}while(!flag);
 
 		return ret;
 	}

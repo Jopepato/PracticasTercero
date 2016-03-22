@@ -19,8 +19,6 @@
 		std::vector<knapsack> aux = instancia.getSolutionKP();
 		int index;
 
-			exit=false;
-			aux = instancia.getSolutionKP();
 			while(exit!=true){
 				index = rand()%aux.size();
 				if(aux[index].token==false){

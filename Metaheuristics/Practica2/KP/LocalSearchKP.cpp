@@ -6,7 +6,7 @@ SolutionKP LocalSearchKP::getOptimal(){
 	//We are going to watch over the solution and get the optimal
 	//changing each of the tokens
 	SolutionKP aux;
-	SolutionKP best;
+	SolutionKP best = getSol();
 	std::vector<knapsack> auxV = getSol().getSolution();
 
 	for(unsigned int i=0; i<auxV.size(); i++){
@@ -17,7 +17,7 @@ SolutionKP LocalSearchKP::getOptimal(){
 
 		aux.setSolution(auxV);
 
-		if(aux.getPrice() > getSol().getPrice()){
+		if(aux.getWeight() < getCapacity() && aux.getPrice() > best.getPrice()){
 			best.setSolution(auxV);
 		}
 

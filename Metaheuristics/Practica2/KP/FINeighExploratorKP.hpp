@@ -34,14 +34,11 @@ class FINeighExploratorKP{
 	SolutionKP getFirstImprovement(){
 		SolutionKP aux = getFirst();
 		NeighOperatorKP ope;
-		int random;
 
 		for (int i = 0; i < 50; i++){
-			random = rand()%getFirst().getSolution().size();
-			std::cout << random << std::endl;
+
 			aux = ope.getNeighSolution(getFirst(), getCapacity());
 			if(aux.getPrice()> getFirst().getPrice()){
-				std::cout << "Holi" << std::endl;
 				setFirst(aux);
 				break;
 			}
