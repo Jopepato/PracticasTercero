@@ -29,7 +29,7 @@ public:
 		};
 
 		inline void setSolution(const std::vector<knapsack> &vectorKnapsack){
-			vectorKnapsack_=vectorKnapsack;
+			vectorKnapsack_ = vectorKnapsack;
 		};
 
 		inline int getWeight(){

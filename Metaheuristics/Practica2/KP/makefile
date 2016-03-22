@@ -1,5 +1,5 @@
-prueba: *.o *.hpp
-	g++ *.o -Wall -o3 -o prueba
+prueba: prueba.o InstanceKP.o LocalSearchKP.o SolGeneratorKP.o *.hpp
+	g++ prueba.o InstanceKP.o LocalSearchKP.o SolGeneratorKP.o -Wall -o3 -o prueba
 
 prueba.o: prueba.cpp *.hpp
 	g++ -Wall -c prueba.cpp
@@ -13,5 +13,7 @@ LocalSearchKP.o: LocalSearchKP.cpp *.hpp
 SolGeneratorKP.o: SolGeneratorKP.cpp *.hpp
 	g++ -Wall -c SolGeneratorKP.cpp
 
-clean: *.o
+clear:
 	rm -f *.o
+clear2:
+	rm -f prueba

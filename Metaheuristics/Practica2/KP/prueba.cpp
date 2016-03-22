@@ -2,7 +2,7 @@
 #include "SolutionKP.hpp"
 #include "SolGeneratorKP.hpp"
 #include <iostream>
-
+#include <ctime>
 #include "FINeighExploratorKP.hpp"
 #include "BINeighExploratorKP.hpp"
 #include "LocalSearchKP.hpp"
@@ -11,6 +11,7 @@ int main(){
 	std::string fileName;
 	int option;
 	SolutionKP sol;
+	srand(time(NULL));
 
 
 	//Ask the user which one we want to read
@@ -40,19 +41,19 @@ int main(){
 	generator.generateSol(instance);
 	sol = generator.getSolutionKP();
 	
-	FINeighExploratorKP fifiu (sol, instance.getCapacity() );
-	LocalSearchKP loloko ( sol, instance.getCapacity() );
-	BINeighExploratorKP bibifidus (sol, instance.getCapacity());
+	FINeighExploratorKP first(sol, instance.getCapacity());
+	LocalSearchKP local(sol, instance.getCapacity());
+	BINeighExploratorKP best(sol, instance.getCapacity());
 
-	sol = fifiu.getFirstImprovement();
+	sol = first.getFirstImprovement();
 	sol.printSol();
-
+/*
 	sol = loloko.getOptimal();
 	sol.printSol();
 
 	sol = bibifidus.getBestImprovement();
 	sol.printSol();
-	
+*/
 
 	return 1;
 }

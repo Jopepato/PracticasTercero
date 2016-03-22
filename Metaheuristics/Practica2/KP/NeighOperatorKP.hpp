@@ -2,31 +2,27 @@
 #define NEIGH_OPERATOR_KP_
 
 #include "SolutionKP.hpp"
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>
+#include <cstdlib>     /* srand, rand */
 
 #include <vector>
 #include <iostream>
-
 class NeighOperatorKP{
 
 	public:
+	//:D
+	NeighOperatorKP(){};
 
 	SolutionKP getNeighSolution(const SolutionKP &sol, const int &capacity){
 		std::vector <knapsack> aux = sol.getSolution();
 		SolutionKP ret;
 		SolGeneratorKP generator;
-		bool flag=false;
+		int a;
+		//bool flag=false;
 
-
-		do{
-			int a = rand()%aux.size();
+			a = std::rand()%aux.size();
+			//std::cout << a << std::endl;
 			aux[a].token = !aux[a].token;
 			ret.setSolution(aux);
-			std::cout<<"hola"<<std::endl;
-			ret.printSol();
-
-		}while(ret.getWeight() > capacity);
 
 		return ret;
 	}
