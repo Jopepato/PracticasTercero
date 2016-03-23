@@ -45,15 +45,17 @@ int main(){
 	LocalSearchKP local(sol, instance.getCapacity());
 	BINeighExploratorKP best(sol, instance.getCapacity());
 
+	std::cout<<std::endl<<"*Primera mejora*"<<std::endl;
 	sol = first.getFirstImprovement();
 	sol.printSol();
 
-	sol = local.getOptimal();
-	sol.printSol();
-
+	std::cout<<std::endl<<"*Mejor mejora*"<<std::endl;
 	sol = best.getBestImprovement();
 	sol.printSol();
 
+	std::cout<<std::endl<<"*Búsqueda local*"<<std::endl;
+	sol = local.getOptimal();
+	sol.printSol();
 
 	return 1;
 }

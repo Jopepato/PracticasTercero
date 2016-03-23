@@ -1,5 +1,5 @@
-#ifndef LOCAL_SEARCH_
-#define LOCAL_SEARCH_
+#ifndef LOCAL_SEARCH_KP_
+#define LOCAL_SEARCH_KP_
 
 #include "SolutionKP.hpp"
 

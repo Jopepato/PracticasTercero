@@ -31,10 +31,8 @@
 				}
 			}
 			if(getDistance(path)<getDistance()){
-				std::cout << std::endl << "Iteration " << i;
 				setSolutionTSP(path);
 				setDistance(getDistance(path));
-				std::cout << std::endl << "Total distance: " << getDistance() << std::endl;
 			}
 		}
 	}

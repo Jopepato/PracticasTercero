@@ -15,13 +15,11 @@ public:
 
 	SolGeneratorTSP(){
 		setDistance(0.0);
-		srand(time(NULL));
 	}
 
 	SolGeneratorTSP(const InstanceTSP& instancia){
 		setDistance(std::numeric_limits<double>::infinity());
 		setSolutionTSP(instancia.getSolutionTSP());
-		srand(time(NULL));
 	}
 
 	void generateSol(InstanceTSP instancia);
