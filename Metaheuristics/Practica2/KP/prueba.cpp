@@ -17,6 +17,7 @@ int main(int argc, char ** argv){
 	std::string fileNameWrite;
 	std::ofstream myfile;
 	Clock reloj;
+	Clock reloj2;
 	double tiempo;
 
 	//We check if the parameters are k :D
@@ -66,38 +67,45 @@ int main(int argc, char ** argv){
 	std::cout << "\x1b[32mPasando a fichero...\x1b[0m" << std::endl;
 
 	std::cout << "Las soluciones por diversificación:" << std::endl;
+	reloj2.start();
+
 	for(int i=0; i<iterations; i++){
 
-	generator.generateSol(instance);
-	sol = generator.getSolutionKP();
-	
-	FINeighExploratorKP first(sol, instance.getCapacity());
-	LocalSearchKP local(sol, instance.getCapacity());
-	BINeighExploratorKP best(sol, instance.getCapacity());
+		generator.generateSol(instance);
+		sol = generator.getSolutionKP();
+		
+		FINeighExploratorKP first(sol, instance.getCapacity());
+		LocalSearchKP local(sol, instance.getCapacity());
+		BINeighExploratorKP best(sol, instance.getCapacity());
 
-	//We are gonna write the file with this format
-	//'Iteration' 'priceBase' 'WeightBase' 'priceFI' 'WeightFI''time' 'priceBI' 'WeightBI' 'time' 'PriceLocal' 'time' 'WeightLocal'
-	myfile << i << " " << sol.getPrice() << " " << sol.getWeight() << " ";
+		//We are gonna write the file with this format
+		//'Iteration' 'priceBase' 'WeightBase' 'priceFI' 'WeightFI''time' 'priceBI' 'WeightBI' 'time' 'PriceLocal' 'time' 'WeightLocal'
+		myfile << i << " " << sol.getPrice() << " " << sol.getWeight() << " ";
 
-	//We are also counting the time
-	reloj.start();
-	sol = first.getFirstImprovement();
-	reloj.stop();
-	tiempo = reloj.elapsed();
-	myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
+		//We are also counting the time
+		reloj.start();
+		sol = first.getFirstImprovement();
+		reloj.stop();
+		tiempo = reloj.elapsed();
+		myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
 
-	reloj.start();
-	sol = best.getBestImprovement();
-	reloj.stop();
-	tiempo = reloj.elapsed();
-	myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
+		reloj.start();
+		sol = best.getBestImprovement();
+		reloj.stop();
+		tiempo = reloj.elapsed();
+		myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
 
-	reloj.start();
-	sol = local.getOptimal();
-	reloj.stop();
-	tiempo = reloj.elapsed();
-	myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << std::endl;
+		reloj.start();
+		sol = local.getOptimal();
+		reloj.stop();
+		tiempo = reloj.elapsed();
+		myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << std::endl;
 	}
+
+	reloj2.stop();
+
+	std::cout << reloj2.elapsed()/1000000 << " segundos ha tardado esto" << std::endl;
+
 /*
 	std::cout<<std::endl<<"*Primera mejora*"<<std::endl;
 	sol = first.getFirstImprovement();
