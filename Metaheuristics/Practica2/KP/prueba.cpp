@@ -7,7 +7,7 @@
 #include "FINeighExploratorKP.hpp"
 #include "BINeighExploratorKP.hpp"
 #include "LocalSearchKP.hpp"
-
+#include "ClaseTiempo.hpp"
 int main(int argc, char ** argv){
 	std::string fileName;
 	int option;
@@ -16,6 +16,8 @@ int main(int argc, char ** argv){
 	int iterations;
 	std::string fileNameWrite;
 	std::ofstream myfile;
+	Clock reloj;
+	double tiempo;
 
 	//We check if the parameters are k :D
 	if(argc!=3){
@@ -74,14 +76,27 @@ int main(int argc, char ** argv){
 	BINeighExploratorKP best(sol, instance.getCapacity());
 
 	//We are gonna write the file with this format
-	//'Iteration' 'priceBase' 'WeightBase' 'priceFI' 'WeightFI' 'priceBI' 'WeightBI' 'PriceLocal' 'WeightLocal'
+	//'Iteration' 'priceBase' 'WeightBase' 'priceFI' 'WeightFI''time' 'priceBI' 'WeightBI' 'time' 'PriceLocal' 'time' 'WeightLocal'
 	myfile << i << " " << sol.getPrice() << " " << sol.getWeight() << " ";
+
+	//We are also counting the time
+	reloj.start();
 	sol = first.getFirstImprovement();
-	myfile << sol.getPrice() << " " << sol.getWeight() << " ";
+	reloj.stop();
+	tiempo = reloj.elapsed();
+	myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
+
+	reloj.start();
 	sol = best.getBestImprovement();
-	myfile << sol.getPrice() << " " << sol.getWeight() << " ";
+	reloj.stop();
+	tiempo = reloj.elapsed();
+	myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
+
+	reloj.start();
 	sol = local.getOptimal();
-	myfile << sol.getPrice() << " " << sol.getWeight() << " " << std::endl;
+	reloj.stop();
+	tiempo = reloj.elapsed();
+	myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << std::endl;
 	}
 /*
 	std::cout<<std::endl<<"*Primera mejora*"<<std::endl;
