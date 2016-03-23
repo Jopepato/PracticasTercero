@@ -15,5 +15,3 @@ SolGeneratorKP.o: SolGeneratorKP.cpp *.hpp
 
 clear:
 	rm -f *.o
-clear2:
-	rm -f prueba
