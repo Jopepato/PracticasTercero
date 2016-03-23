@@ -32,7 +32,6 @@ class BINeighExploratorTSP{
 			aux = ope.getNeighSolution(initial);
 			if(aux.getDistance()< getBest().getDistance()){
 				setBest(aux);
-				std::cout<<"Entra varias veces"<<std::endl;
 			}
 		}
 		return getBest();

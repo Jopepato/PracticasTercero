@@ -2,7 +2,6 @@
 #define FI_NEIGH_EXPLORATOR_TSP_
 
 #include "NeighOperatorTSP.hpp"
-#include <iostream>
 
 class FINeighExploratorTSP{
 
@@ -31,7 +30,6 @@ class FINeighExploratorTSP{
 			aux = ope.getNeighSolution(getFirst());
 			if(aux.getDistance()< getFirst().getDistance()){
 				setFirst(aux);
-				std::cout<<"Entra una vez"<<std::endl;
 				break;
 			}
 		}
