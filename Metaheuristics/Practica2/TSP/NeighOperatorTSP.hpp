@@ -14,6 +14,7 @@ class NeighOperatorTSP{
 
 	SolutionTSP getNeighSolution(const SolutionTSP &sol){
 		std::vector <node> aux = sol.getSolution();
+		std::vector <node> aux2;
 		node n;
 		SolutionTSP ret;
 		SolGeneratorTSP generator;
@@ -25,6 +26,17 @@ class NeighOperatorTSP{
 			n = aux[a];
 			aux[a] = aux[b];
 			aux[b] = n;
+			if(a>b){
+				int c;
+				c = b;
+				b = a;
+				a = c;
+			}
+			for(int i = a+1, j=b-1; i<j; i++, j--){
+				n = aux[i];
+				aux[i] = aux[j];
+				aux[j] = n;
+			}
 
 			ret.setSolution(aux);
 		}while(a==b);

@@ -95,11 +95,15 @@ int main(int argc, char ** argv){
 		tiempo = reloj.elapsed();
 		myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
 
+		//Optimal search
+		/*
 		reloj.start();
 		sol = local.getOptimal();
 		reloj.stop();
 		tiempo = reloj.elapsed();
 		myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << std::endl;
+		*/
+		myfile << std::endl;
 	}
 
 	reloj2.stop();

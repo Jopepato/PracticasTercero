@@ -67,13 +67,13 @@ int main(int argc, char ** argv){
 
 	//We generate the solutions for the differents instances
 	
-
+	reloj2.start();
 	for(int i=0; i<iterations; i++){
 		generator.generateSol(instance);
 		SolutionTSP sol = generator.getSolutionTSP();
 
-		std::cout<<std::endl<<"*Solucion Aleatoria*"<<std::endl;
-		sol.printSol();
+		//std::cout<<std::endl<<"*Solucion Aleatoria*"<<std::endl;
+		//sol.printSol();
 
 		//Print the base solution
 		//It will print the file like this
@@ -89,21 +89,27 @@ int main(int argc, char ** argv){
 		sol = first.getFirstImprovement();
 		reloj.stop();
 		myfile << sol.getDistance() << " " << reloj.elapsed() << " ";
+		//std::cout << "Primera mejora" << std::endl;
 
 		reloj.start();
 		sol = best.getBestImprovement();
 		reloj.stop();
 		myfile << sol.getDistance() << " " << reloj.elapsed() << " ";
+		//std::cout << "Mejor mejora" << std::endl;
 
-		reloj.start();
-		sol = local.getOptimal();
-		reloj.stop();
-		myfile << sol.getDistance() << " " << reloj.elapsed() << std::endl;
+		myfile << std::endl;
+
+		//reloj.start();
+		//sol = local.getOptimal();
+		//reloj.stop();
+		//myfile << sol.getDistance() << " " << reloj.elapsed() << std::endl;
 
 		//Now we print it in the file
 
 	}
+	reloj2.stop();
 
+	std::cout << reloj2.elapsed()/1000000 << " segundos ha tardado esto" << std::endl;
 
 
 	//For printing it on the console

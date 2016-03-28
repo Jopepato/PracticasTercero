@@ -16,15 +16,39 @@ class NeighOperatorKP{
 		std::vector <knapsack> aux = sol.getSolution();
 		SolutionKP ret;
 		SolGeneratorKP generator;
-		int a;
+		int a, b;
 		bool flag=false;
+
+		//We are doing this cheeky :D
+
 		do{
 			a = std::rand()%aux.size();
+			if(aux[a].token == true){
+				//nana
+				while(true){
+					//Buscamos el token falso
+					b = std::rand()%aux.size();
+					if(aux[b].token==false)
+						break;
+				}
+			}else{
+				//nano
+				while(true){
+					//Buscamos el token true
+					b = std::rand()%aux.size();
+					if(aux[b].token==true)
+						break;
+				}
+			}
+
+
 			aux[a].token = !aux[a].token;
+			aux[b].token = !aux[b].token;
 			ret.setSolution(aux);
 			if (ret.getWeight()>capacity)
 			{
 				aux[a].token = !aux[a].token;
+				aux[b].token = !aux[b].token;
 				ret.setSolution(aux);
 			}else{
 				flag=true;

@@ -31,7 +31,7 @@
 				}
 			}
 			setSolutionKP(aux);
-			printSol();
+			//printSol();
 	}
 
 	int SolGeneratorKP::getWeight(const std::vector<knapsack> &v){
