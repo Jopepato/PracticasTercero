@@ -47,6 +47,7 @@ class NeighOperatorKP{
 			ret.setSolution(aux);
 			if (ret.getWeight()>capacity)
 			{
+				//Volvemos a probar, dejando la solución como estaba
 				aux[a].token = !aux[a].token;
 				aux[b].token = !aux[b].token;
 				ret.setSolution(aux);

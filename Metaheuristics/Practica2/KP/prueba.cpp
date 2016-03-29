@@ -11,7 +11,7 @@
 int main(int argc, char ** argv){
 	std::string fileName;
 	int option;
-	SolutionKP sol;
+	SolutionKP sol, solFI, solBI;
 	srand(time(NULL));
 	int iterations;
 	std::string fileNameWrite;
@@ -69,14 +69,19 @@ int main(int argc, char ** argv){
 	std::cout << "Las soluciones por diversificación:" << std::endl;
 	reloj2.start();
 
+	generator.generateSol(instance);
+	sol = generator.getSolutionKP();
+	FINeighExploratorKP first(sol, instance.getCapacity());
+	BINeighExploratorKP best(sol, instance.getCapacity());
+	solBI = sol;
+	solFI = sol;
+
 	for(int i=0; i<iterations; i++){
 
-		generator.generateSol(instance);
-		sol = generator.getSolutionKP();
 		
-		FINeighExploratorKP first(sol, instance.getCapacity());
-		LocalSearchKP local(sol, instance.getCapacity());
-		BINeighExploratorKP best(sol, instance.getCapacity());
+		
+		FINeighExploratorKP first(solFI, instance.getCapacity());
+		BINeighExploratorKP best(solBI, instance.getCapacity());
 
 		//We are gonna write the file with this format
 		//'Iteration' 'priceBase' 'WeightBase' 'priceFI' 'WeightFI''time' 'priceBI' 'WeightBI' 'time' 'PriceLocal' 'time' 'WeightLocal'
@@ -84,16 +89,16 @@ int main(int argc, char ** argv){
 
 		//We are also counting the time
 		reloj.start();
-		sol = first.getFirstImprovement();
+		solFI = first.getFirstImprovement();
 		reloj.stop();
 		tiempo = reloj.elapsed();
-		myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
+		myfile << solFI.getPrice() << " " << solFI.getWeight() << " " << tiempo << " ";
 
 		reloj.start();
-		sol = best.getBestImprovement();
+		solBI = best.getBestImprovement();
 		reloj.stop();
 		tiempo = reloj.elapsed();
-		myfile << sol.getPrice() << " " << sol.getWeight() << " " << tiempo << " ";
+		myfile << solBI.getPrice() << " " << solBI.getWeight() << " " << tiempo << " ";
 
 		//Optimal search
 		/*
