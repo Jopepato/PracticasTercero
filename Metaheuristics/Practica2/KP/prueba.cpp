@@ -18,6 +18,7 @@ int main(int argc, char ** argv){
 	std::ofstream myfile;
 	Clock reloj;
 	Clock reloj2;
+	double tiempoFI=0, tiempoBI=0;
 	double tiempo;
 
 	//We check if the parameters are k :D
@@ -84,6 +85,8 @@ int main(int argc, char ** argv){
 		BINeighExploratorKP best(solBI, instance.getCapacity());
 
 		//We are gonna write the file with this format
+
+		//The file has changed
 		//'Iteration' 'priceBase' 'WeightBase' 'priceFI' 'WeightFI''time' 'priceBI' 'WeightBI' 'time' 'PriceLocal' 'time' 'WeightLocal'
 		myfile << i << " " << sol.getPrice() << " " << sol.getWeight() << " ";
 
@@ -92,13 +95,15 @@ int main(int argc, char ** argv){
 		solFI = first.getFirstImprovement();
 		reloj.stop();
 		tiempo = reloj.elapsed();
-		myfile << solFI.getPrice() << " " << solFI.getWeight() << " " << tiempo << " ";
+		tiempoFI = tiempoFI + tiempo;
+		myfile << solFI.getPrice() << " " << solFI.getWeight() << " " << tiempo << " " << tiempoFI << " ";
 
 		reloj.start();
 		solBI = best.getBestImprovement();
 		reloj.stop();
 		tiempo = reloj.elapsed();
-		myfile << solBI.getPrice() << " " << solBI.getWeight() << " " << tiempo << " ";
+		tiempoBI = tiempoBI + tiempo;
+		myfile << solBI.getPrice() << " " << solBI.getWeight() << " " << tiempo << " " << tiempoBI << " ";
 
 		//Optimal search
 		/*

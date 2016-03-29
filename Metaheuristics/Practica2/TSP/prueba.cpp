@@ -17,6 +17,9 @@ int main(int argc, char ** argv){
 	std::string fileNameWrite;
 	std::ofstream myfile;
 	Clock reloj, reloj2;
+	double tiempo=0;
+	double tiempoFI=0, tiempoBI=0;
+	SolutionTSP sol, solFI, solBI;
 
 	if(argc!=3){
 		std::cout << "Forma de llamar al programa incorrecta" << std::endl;
@@ -66,35 +69,43 @@ int main(int argc, char ** argv){
 	//std::cout << "Optimal distance inside: " << optimalDistance << std::endl << std::endl;
 
 	//We generate the solutions for the differents instances
-	
+	generator.generateSol(instance);
+	sol = generator.getSolutionTSP();
+	solFI = sol;
+	solBI = sol;
+
 	reloj2.start();
 	for(int i=0; i<iterations; i++){
-		generator.generateSol(instance);
-		SolutionTSP sol = generator.getSolutionTSP();
+		
 
 		//std::cout<<std::endl<<"*Solucion Aleatoria*"<<std::endl;
 		//sol.printSol();
 
 		//Print the base solution
 		//It will print the file like this
+
+		//The file has changed
 		//'Iteration' 'BaseDistance' 'DistanceFI' 'time' 'DistanceBI' 'time' 'OptimalDistance' 'time'
 		myfile << i << " " << sol.getDistance() << " ";
 
 
-		FINeighExploratorTSP first(sol);
-		BINeighExploratorTSP best(sol);
-		LocalSearchTSP local(sol);
+		FINeighExploratorTSP first(solFI);
+		BINeighExploratorTSP best(solBI);
 
 		reloj.start();
-		sol = first.getFirstImprovement();
+		solFI = first.getFirstImprovement();
 		reloj.stop();
-		myfile << sol.getDistance() << " " << reloj.elapsed() << " ";
+		tiempo = reloj.elapsed();
+		tiempoFI = tiempoFI + tiempo;
+		myfile << solFI.getDistance() << " " << tiempo << " " << tiempoFI << " ";
 		//std::cout << "Primera mejora" << std::endl;
 
 		reloj.start();
-		sol = best.getBestImprovement();
+		solBI = best.getBestImprovement();
 		reloj.stop();
-		myfile << sol.getDistance() << " " << reloj.elapsed() << " ";
+		tiempo = reloj.elapsed();
+		tiempoBI = tiempoBI + tiempo;
+		myfile << solBI.getDistance() << " " << tiempo << " " << tiempoBI << " ";
 		//std::cout << "Mejor mejora" << std::endl;
 
 		myfile << std::endl;
