@@ -2,9 +2,9 @@
 #define SIMULATEDANNEALING_HPP_
 
 #include <vector>
+#include <math>
 #include "SolutionKP.hpp"
 
-#define K 0.3
 
 class SimulatedAnnealing{
 
@@ -23,10 +23,8 @@ class SimulatedAnnealing{
 			setCurrentSolution(randomSolution);
 			setCapacity(capacity);
 			//TODO temperatura inicial
-			setInitialTemperature();
+			setInitialTemperature((10*randomSolution.getPrice())/-log(0.3));
 			setTemperature(getInitialTemperature());
-			
-
 		}
 
 
@@ -49,7 +47,7 @@ class SimulatedAnnealing{
 			currentSolution_ = solution;
 		};
 
-		inline float getTemperature() const
+		inline double getTemperature() const
 		{
 			return temperature_;
 		};
@@ -58,7 +56,7 @@ class SimulatedAnnealing{
 			temperature_ = temp;
 		};
 
-		inline float getInitialTemperature() const
+		inline double getInitialTemperature() const
 		{
 			return initialTemperature_;
 		};
