@@ -1,5 +1,5 @@
-prueba: prueba.o InstanceKP.o LocalSearchKP.o SolGeneratorKP.o *.hpp
-	g++ prueba.o InstanceKP.o LocalSearchKP.o SolGeneratorKP.o -Wall -o3 -o prueba
+prueba: prueba.o InstanceKP.o SolGeneratorKP.o SimulatedAnnealing.o *.hpp
+	g++ prueba.o InstanceKP.o SolGeneratorKP.o SimulatedAnnealing.o -Wall -o3 -o prueba
 
 prueba.o: prueba.cpp *.hpp
 	g++ -Wall -c prueba.cpp
@@ -7,11 +7,11 @@ prueba.o: prueba.cpp *.hpp
 InstanceKP.o: InstanceKP.cpp *.hpp
 	g++ -Wall -c InstanceKP.cpp
 
-LocalSearchKP.o: LocalSearchKP.cpp *.hpp
-	g++ -Wall -c LocalSearchKP.cpp
-
 SolGeneratorKP.o: SolGeneratorKP.cpp *.hpp
 	g++ -Wall -c SolGeneratorKP.cpp
+
+SimulatedAnnealing.o: SimulatedAnnealing.cpp *.hpp
+	g++ -Wall -c SimulatedAnnealing.cpp
 
 clear:
 	rm -f *.o

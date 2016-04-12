@@ -1,12 +1,14 @@
 #include "SolutionKP.hpp"
-
+#include "SimulatedAnnealing.hpp"
+#include "NeighOperatorKP.hpp"
+#include <cstdlib>
 
 void SimulatedAnnealing::freezeTemperature(const int &iteration){
 	//Baja la temperatura
 	setTemperature(getInitialTemperature()/(1+log(1+iteration)));
 }
 
-bool SimulatedAnnealing::acceptSolution(const SolutionKP &neighbour){
+bool SimulatedAnnealing::acceptSolution(SolutionKP &neighbour){
 	//Acepta o no? :D
 	double difference = getCurrentSolution().getPrice() - neighbour.getPrice();
 	double probability = 0;

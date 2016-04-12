@@ -2,7 +2,7 @@
 #define SIMULATEDANNEALING_HPP_
 
 #include <vector>
-#include <math>
+#include <cmath>
 #include "SolutionKP.hpp"
 
 
@@ -17,12 +17,11 @@ class SimulatedAnnealing{
 
 	public:
 
-		SimulatedAnnealing(const SolutionKP &randomSolution, const int &capacity){
+		SimulatedAnnealing(SolutionKP &randomSolution, const int &capacity){
 		//Coge una aleatoria para best y current
 			setBestSolution(randomSolution);
 			setCurrentSolution(randomSolution);
 			setCapacity(capacity);
-			//TODO temperatura inicial
 			setInitialTemperature((10*randomSolution.getPrice())/-log(0.3));
 			setTemperature(getInitialTemperature());
 		}
@@ -43,7 +42,7 @@ class SimulatedAnnealing{
 			return currentSolution_;
 		};
 
-		inline void setCurrentSolution(const vector<knapsack> &solution){
+		inline void setCurrentSolution(const SolutionKP &solution){
 			currentSolution_ = solution;
 		};
 
@@ -85,7 +84,7 @@ class SimulatedAnnealing{
 
 
 		//Check if we get that neighbout solution
-		bool acceptSolution(const SolutionKP &neighbour);
+		bool acceptSolution(SolutionKP &neighbour);
 
 
 

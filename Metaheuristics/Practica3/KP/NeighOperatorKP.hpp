@@ -2,6 +2,7 @@
 #define NEIGH_OPERATOR_KP_
 
 #include "SolutionKP.hpp"
+#include "SolGeneratorKP.hpp"
 #include <cstdlib>     /* srand, rand */
 
 #include <vector>
