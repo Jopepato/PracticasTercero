@@ -4,7 +4,8 @@
 #include <vector>
 #include <cmath>
 #include "SolutionKP.hpp"
-
+#include <fstream>
+#include <iostream>
 
 class SimulatedAnnealing{
 
@@ -22,7 +23,8 @@ class SimulatedAnnealing{
 			setBestSolution(randomSolution);
 			setCurrentSolution(randomSolution);
 			setCapacity(capacity);
-			setInitialTemperature((10*randomSolution.getPrice())/-log(0.3));
+			//setInitialTemperature((10*randomSolution.getPrice())/-log(0.5));
+			setInitialTemperature(((10.0)*randomSolution.getPrice())/-log(0.3));
 			setTemperature(getInitialTemperature());
 		}
 
