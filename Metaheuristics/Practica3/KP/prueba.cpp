@@ -75,7 +75,7 @@ int main(int argc, char ** argv){
 	double media = 0.0;
 
 	//Calculamos la media de las diferencias
-	for(int i=0; i<10; i++){
+	for(int i=0; i<20; i++){
 		SolutionKP sol1, sol2;
 		NeighOperatorKP neigbour;
 
@@ -94,9 +94,17 @@ int main(int argc, char ** argv){
 	SimulatedAnnealing simulatedAnn(sol, generator.getWeight(), media);
 
 	for(int i=0; i<iterations; i++){
+	generator.generateSol(instance);
+	sol = generator.getSolutionKP();
+	//Hacemos uno nuevo por iteración
+	SimulatedAnnealing simulatedAnn(sol, generator.getWeight(), media);
+	
+	simulatedAnn.runSimulatedAnnealing();
+	//Pasamos los resultados a fichero
+	//SolucionFinal MejorSolucion TemperaturaFinal
+	myfile << i << " " << simulatedAnn.getCurrentSolution().getWeight() << " " << simulatedAnn.getBestSolution().getWeight() << " " << simulatedAnn.getTemperature() << std::endl;
+	std::cout << i << " " << simulatedAnn.getCurrentSolution().getWeight() << " " << simulatedAnn.getBestSolution().getWeight() << " " << simulatedAnn.getTemperature() << std::endl;
 
-		simulatedAnn.runSimulatedAnnealing();
-		
 	}
 
 	reloj2.stop();

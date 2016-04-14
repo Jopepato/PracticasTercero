@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <cmath>
-#include "SolutionKP.hpp"
+#include "SolutionTSP.hpp"
 #include <fstream>
 #include <iostream>
 #include <cmath>
@@ -11,15 +11,15 @@
 class SimulatedAnnealing{
 
 	private:
-		SolutionKP bestSolution_;
-		SolutionKP currentSolution_;
+		SolutionTSP bestSolution_;
+		SolutionTSP currentSolution_;
 		double initialTemperature_;
 		double temperature_;
 		int capacity_;
 
 	public:
 
-		SimulatedAnnealing(SolutionKP &randomSolution, const int &capacity, double media= 1.0, double k=0.3, double probabilidad=0.9){
+		SimulatedAnnealing(SolutionTSP &randomSolution, const int &capacity, double media= 1.0, double k=0.3, double probabilidad=0.9){
 		//Coge una aleatoria para best y current
 			setBestSolution(randomSolution);
 			setCurrentSolution(randomSolution);
@@ -31,21 +31,21 @@ class SimulatedAnnealing{
 
 
 		//Getters and Setters
-		inline SolutionKP getBestSolution() const
+		inline SolutionTSP getBestSolution() const
 		{
 			return bestSolution_;
 		};
 
-		inline void setBestSolution(const SolutionKP &solution){
+		inline void setBestSolution(const SolutionTSP &solution){
 			bestSolution_ = solution;
 		};
 
-		inline SolutionKP getCurrentSolution() const
+		inline SolutionTSP getCurrentSolution() const
 		{
 			return currentSolution_;
 		};
 
-		inline void setCurrentSolution(const SolutionKP &solution){
+		inline void setCurrentSolution(const SolutionTSP &solution){
 			currentSolution_ = solution;
 		};
 
@@ -89,7 +89,7 @@ class SimulatedAnnealing{
 
 
 		//Check if we get that neighbout solution
-		bool acceptSolution(SolutionKP &neighbour);
+		bool acceptSolution(SolutionTSP &neighbour);
 
 
 

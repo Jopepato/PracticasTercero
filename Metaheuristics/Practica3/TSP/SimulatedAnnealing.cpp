@@ -1,4 +1,4 @@
-#include "SolutionKP.hpp"
+#include "SolutionTSP.hpp"
 #include "SimulatedAnnealing.hpp"
 #include "NeighOperatorKP.hpp"
 #include <cstdlib>
@@ -10,11 +10,11 @@ void SimulatedAnnealing::freezeTemperature(const int &iteration){
 
 }
 
-bool SimulatedAnnealing::acceptSolution(SolutionKP &neighbour){
+bool SimulatedAnnealing::acceptSolution(SolutionTSP &neighbour){
 	//Acepta o no? :D
-	double difference = getCurrentSolution().getPrice() - neighbour.getPrice();
+	double difference = getCurrentSolution().getDistance() - neighbour.getDistance();
 	double probability = 0;
-	if(difference < 0){
+	if(difference > 0){
 		return true;
 	}else{
 		probability = 1-1/(1+exp((-1.0)*difference/(0.3*getTemperature())));
@@ -34,16 +34,16 @@ bool SimulatedAnnealing::acceptSolution(SolutionKP &neighbour){
 }
 
 void SimulatedAnnealing::runSimulatedAnnealing(){
-    SolutionKP aux = getCurrentSolution();
+    SolutionTSP aux = getCurrentSolution();
     NeighOperatorKP neigh;
 
     for(int i =0 ;  i<100000 ; i++){
-      aux = neigh.getNeighSolution(getCurrentSolution(), getCapacity());
+      aux = neigh.getNeighSolution(getCurrentSolution());
       if(acceptSolution(aux)){
 		setCurrentSolution(aux);
 	  }
 
-      if(aux.getPrice() > getBestSolution().getPrice()){
+      if(aux.getDistance() < getBestSolution().getDistance()){
         setBestSolution(aux);
       }
       if(i%1000 == 0 ){
@@ -56,22 +56,22 @@ void SimulatedAnnealing::runSimulatedAnnealing(){
 
 
 void SimulatedAnnealing::runSimulatedAnnealingToFile(const std::string &filename){
-    SolutionKP aux = getCurrentSolution();
+    SolutionTSP aux = getCurrentSolution();
     NeighOperatorKP neigh;
     std::ofstream file;
     file.open(filename.c_str());
 
     for(int i =0 ;  i<100000 ; i++){
-      aux = neigh.getNeighSolution(getCurrentSolution(), getCapacity());
+      aux = neigh.getNeighSolution(getCurrentSolution());
       if(acceptSolution(aux)){
 		setCurrentSolution(aux);
 	  }
 
-      if(aux.getPrice() > getBestSolution().getPrice()){
+      if(aux.getDistance() < getBestSolution().getDistance()){
         setBestSolution(aux);
       }
 
-      file<<i<<" "<<getTemperature()<<" "<< getBestSolution().getPrice()<< " " <<getCurrentSolution().getPrice()<<std::endl;
+      file<<i<<" "<<getTemperature()<<" "<< getBestSolution().getDistance()<< " " <<getCurrentSolution().getDistance()<<std::endl;
 
       if(i%1000 == 0 ){
         freezeTemperature(i);
