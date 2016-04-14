@@ -12,14 +12,14 @@ bool SimulatedAnnealing::acceptSolution(SolutionKP &neighbour){
 	//Acepta o no? :D
 	double difference = getCurrentSolution().getPrice() - neighbour.getPrice();
 	double probability = 0;
-	if(difference>0){
+	if(difference<0){
 		return true;
 	}else{
 		probability = 1 - (1/( 1+exp((-1.0)*difference/(0.3*getTemperature())) ) );
 		std::cout<<"P = "<<probability*10<<std::endl;
 		double aux = rand()%10;
 		
-		if(aux <= probability*10){
+		if(5 <= probability*10 || probability == 1){
 			
 			std::cout<<"Rand = "<<aux<<std::endl;
 			return true;
