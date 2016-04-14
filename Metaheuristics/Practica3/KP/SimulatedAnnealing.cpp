@@ -5,7 +5,9 @@
 
 void SimulatedAnnealing::freezeTemperature(const int &iteration){
 	//Baja la temperatura
-	setTemperature(getInitialTemperature()/(1+log(1+iteration)));
+	//setTemperature(getInitialTemperature()/(1+iteration));
+	//setTemperature(getInitialTemperature()- 0.3*iteration);
+	setTemperature(getTemperature()*0.95);
 }
 
 bool SimulatedAnnealing::acceptSolution(SolutionKP &neighbour){
@@ -19,7 +21,7 @@ bool SimulatedAnnealing::acceptSolution(SolutionKP &neighbour){
 		std::cout<<"P = "<<probability*10<<std::endl;
 		double aux = rand()%10;
 		
-		if(5 <= probability*10 || probability == 1){
+		if(4 <= probability*10 || probability == 1){
 			
 			std::cout<<"Rand = "<<aux<<std::endl;
 			return true;
@@ -49,9 +51,9 @@ void SimulatedAnnealing::runSimulatedAnnealing(){
 
       file<<i<<" "<<getTemperature()<<" "<< getBestSolution().getPrice()<< " " <<getCurrentSolution().getPrice()<<std::endl;
 
-      //if(i%1000 == 0 ){
+      if(i%1000 == 0 ){
         freezeTemperature(i);
-      //}
+      }
 
     }
     

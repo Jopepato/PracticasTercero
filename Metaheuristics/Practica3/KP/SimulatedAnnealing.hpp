@@ -23,7 +23,7 @@ class SimulatedAnnealing{
 			setBestSolution(randomSolution);
 			setCurrentSolution(randomSolution);
 			setCapacity(capacity);
-			//setInitialTemperature((10*randomSolution.getPrice())/-log(0.5));
+			//setInitialTemperature((10*randomSolution.getPrice())/-log(0.3));
 			setInitialTemperature(10000);
 			setTemperature(getInitialTemperature());
 		}
