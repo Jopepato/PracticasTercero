@@ -6,6 +6,7 @@
 #include "SolutionKP.hpp"
 #include <fstream>
 #include <iostream>
+#include <cmath>
 
 class SimulatedAnnealing{
 
@@ -18,13 +19,13 @@ class SimulatedAnnealing{
 
 	public:
 
-		SimulatedAnnealing(SolutionKP &randomSolution, const int &capacity){
+		SimulatedAnnealing(SolutionKP &randomSolution, const int &capacity, double media= 1.0, double k=0.3, double probabilidad=0.8){
 		//Coge una aleatoria para best y current
 			setBestSolution(randomSolution);
 			setCurrentSolution(randomSolution);
 			setCapacity(capacity);
-			//setInitialTemperature((10*randomSolution.getPrice())/-log(0.3));
-			setInitialTemperature(10000);
+			setInitialTemperature((-1.0)*media/k*log(probabilidad));
+			//setInitialTemperature(1000);
 			setTemperature(getInitialTemperature());
 		}
 

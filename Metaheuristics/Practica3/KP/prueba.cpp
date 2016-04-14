@@ -6,10 +6,11 @@
 #include <fstream>
 #include "SimulatedAnnealing.hpp"
 #include "ClaseTiempo.hpp"
+#include "NeighOperatorKP.hpp"
 int main(int argc, char ** argv){
 	std::string fileName;
 	int option;
-	SolutionKP sol, solFI, solBI;
+	SolutionKP sol;
 	srand(time(NULL));
 	int iterations;
 	std::string fileNameWrite;
@@ -68,7 +69,29 @@ int main(int argc, char ** argv){
 
 	generator.generateSol(instance);
 	sol = generator.getSolutionKP();
-	SimulatedAnnealing simulatedAnn(sol, generator.getWeight());
+
+
+
+	double media = 0.0;
+
+	//Calculamos la media de las diferencias
+	for(int i=0; i<10; i++){
+		SolutionKP sol1, sol2;
+		NeighOperatorKP neigbour;
+
+		generator.generateSol(instance);
+		sol1 = generator.getSolutionKP();
+		sol2 = neigbour.getNeighSolution(sol1, generator.getWeight());
+
+		//Ahora la diferencia
+		media = media + abs(sol1.getWeight() - sol2.getWeight());
+
+	}
+	media = media/10;
+
+
+
+	SimulatedAnnealing simulatedAnn(sol, generator.getWeight(), media);
 
 	for(int i=0; i<iterations; i++){
 
