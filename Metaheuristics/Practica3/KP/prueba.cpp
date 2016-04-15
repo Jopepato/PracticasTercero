@@ -84,10 +84,10 @@ int main(int argc, char ** argv){
 		sol2 = neigbour.getNeighSolution(sol1, generator.getWeight());
 
 		//Ahora la diferencia
-		media = media + abs(sol1.getWeight() - sol2.getWeight());
+		media = media + abs(sol1.getPrice() - sol2.getPrice());
 
 	}
-	media = media/10;
+	media = media/20;
 
 
 
@@ -102,8 +102,8 @@ int main(int argc, char ** argv){
 	simulatedAnn.runSimulatedAnnealing();
 	//Pasamos los resultados a fichero
 	//SolucionFinal MejorSolucion TemperaturaFinal
-	myfile << i << " " << simulatedAnn.getCurrentSolution().getWeight() << " " << simulatedAnn.getBestSolution().getWeight() << " " << simulatedAnn.getTemperature() << std::endl;
-	std::cout << i << " " << simulatedAnn.getCurrentSolution().getWeight() << " " << simulatedAnn.getBestSolution().getWeight() << " " << simulatedAnn.getTemperature() << std::endl;
+	myfile << i << " " << simulatedAnn.getCurrentSolution().getPrice() << " " << simulatedAnn.getBestSolution().getPrice() << " " << simulatedAnn.getTemperature() << std::endl;
+	std::cout << i << " " << simulatedAnn.getCurrentSolution().getPrice() << " " << simulatedAnn.getBestSolution().getPrice() << " " << simulatedAnn.getTemperature() << std::endl;
 
 	}
 

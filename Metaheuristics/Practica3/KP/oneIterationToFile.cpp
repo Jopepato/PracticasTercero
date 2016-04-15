@@ -61,10 +61,10 @@ int main(int argc, char ** argv){
 		sol2 = neigbour.getNeighSolution(sol1, generator.getWeight());
 
 		//Ahora la diferencia
-		media = media + abs(sol1.getWeight() - sol2.getWeight());
+		media = media + abs(sol1.getPrice() - sol2.getPrice());
 
 	}
-	media = media/10;
+	media = media/20;
 
 
 	generator.generateSol(instance);
