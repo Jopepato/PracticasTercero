@@ -18,7 +18,7 @@ class SimulatedAnnealing{
 
 	public:
 
-		SimulatedAnnealing(SolutionTSP &randomSolution, double media= 1.0, double k=0.3, double probabilidad=0.9){
+		SimulatedAnnealing(SolutionTSP &randomSolution, double media= 1.0, double k=0.3, double probabilidad=0.2){
 		//Coge una aleatoria para best y current
 			setBestSolution(randomSolution);
 			setCurrentSolution(randomSolution);

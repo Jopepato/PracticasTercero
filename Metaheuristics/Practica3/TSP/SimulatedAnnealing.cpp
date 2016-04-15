@@ -12,9 +12,9 @@ void SimulatedAnnealing::freezeTemperature(const int &iteration){
 
 bool SimulatedAnnealing::acceptSolution(SolutionTSP &neighbour){
 	//Acepta o no? :D
-	double difference = getCurrentSolution().getDistance() - neighbour.getDistance();
+	double difference =  neighbour.getDistance()- getCurrentSolution().getDistance();
 	double probability = 0;
-	if(difference > 0){
+	if(difference < 0){
 		return true;
 	}else{
 		probability = 1-1/(1+exp((-1.0)*difference/(0.3*getTemperature())));

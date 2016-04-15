@@ -2,9 +2,9 @@
 
 cat << _end_ | gnuplot
 set terminal postscript eps color
-set output "oneIterationM"
+set output "oneIterationGTemp"
 set key right bottom
 set xlabel "Num. Iteracion"
-set ylabel "Distancia"
-plot 'kk2.txt' using 1:4 t "Distancia" w l
+set ylabel "Temperatura"
+plot 'kk3.txt' using 1:2 t "Temperatura" w l
 _end_
