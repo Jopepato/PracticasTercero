@@ -1,43 +1,40 @@
 #include "InstanceTSP.hpp"
 #include "SolutionTSP.hpp"
 #include "SolGeneratorTSP.hpp"
-#include "FINeighExploratorTSP.hpp"
-#include "BINeighExploratorTSP.hpp"
-#include "LocalSearchTSP.hpp"
-#include "ClaseTiempo.hpp"
 #include <iostream>
+#include <ctime>
 #include <fstream>
-
+#include "SimulatedAnnealing.hpp"
+#include "ClaseTiempo.hpp"
+#include "NeighOperatorTSP.hpp"
 int main(int argc, char ** argv){
 	std::string fileName;
 	int option;
-	//double optimalDistance;
+	SolutionTSP sol;
 	srand(time(NULL));
 	int iterations;
 	std::string fileNameWrite;
 	std::ofstream myfile;
-	Clock reloj, reloj2;
-	double tiempo=0;
-	double tiempoFI=0, tiempoBI=0;
-	SolutionTSP sol, solFI, solBI;
+	Clock reloj;
+	Clock reloj2;
 
+	//We check if the parameters are k :D
 	if(argc!=3){
-		std::cout << "Forma de llamar al programa incorrecta" << std::endl;
-		std::cout << "'NombrePrograma' 'NombreFicheroAEscribir' 'Iteraciones'" << std::endl;
+		//The parameters are wrong
+		std::cout << "La forma de llamar al programa es:" << std::endl;
+		std::cout << "'NombrePrograma' 'NombreFichero' 'NumeroIteraciones'" << std::endl;
+		//We exit the program
 		exit(-1);
 	}else{
-		//The user has entered the information correctly
 		fileNameWrite = argv[1];
 		iterations = atoi(argv[2]);
-
 		myfile.open(fileNameWrite.c_str());
 		if(!myfile.is_open()){
-			std::cout << "Fichero no ha podido ser abierto" << std::endl;
+			std::cout << "Error con el fichero" << std::endl;
 			exit(-1);
 		}
-		
 	}
-	
+
 	//Ask the user which one we want to read
 	std::cout << "File? " << std::endl << "\t1) 52 nodes" << std::endl <<"\t2) 150 nodes"
 	 << std::endl << "\t3) 2103 nodes" << std::endl;
@@ -62,82 +59,59 @@ int main(int argc, char ** argv){
 	instance.readFile();
 
 
-
+	//We generate the solutions and pass it to a file
 	SolGeneratorTSP generator(instance);
-	//cout the optimal distance
-	//optimalDistance = generator.getDistance(instance.getSolutionTSP());
-	//std::cout << "Optimal distance inside: " << optimalDistance << std::endl << std::endl;
 
-	//We generate the solutions for the differents instances
-	generator.generateSol(instance);
-	sol = generator.getSolutionTSP();
-	solFI = sol;
-	solBI = sol;
+
+	std::cout << "\x1b[32mPasando a fichero...\x1b[0m" << std::endl;
 
 	reloj2.start();
-	for(int i=0; i<iterations; i++){
-		
 
-		//std::cout<<std::endl<<"*Solucion Aleatoria*"<<std::endl;
-		//sol.printSol();
-
-		//Print the base solution
-		//It will print the file like this
-
-		//The file has changed
-		//'Iteration' 'BaseDistance' 'DistanceFI' 'time' 'DistanceBI' 'time' 'OptimalDistance' 'time'
-		myfile << i << " " << sol.getDistance() << " ";
+	generator.generateSol(instance);
+	sol = generator.getSolutionTSP();
 
 
-		FINeighExploratorTSP first(solFI);
-		BINeighExploratorTSP best(solBI);
 
-		reloj.start();
-		solFI = first.getFirstImprovement();
-		reloj.stop();
-		tiempo = reloj.elapsed();
-		tiempoFI = tiempoFI + tiempo;
-		myfile << solFI.getDistance() << " " << tiempo << " " << tiempoFI << " ";
-		//std::cout << "Primera mejora" << std::endl;
+	double media = 0.0;
 
-		reloj.start();
-		solBI = best.getBestImprovement();
-		reloj.stop();
-		tiempo = reloj.elapsed();
-		tiempoBI = tiempoBI + tiempo;
-		myfile << solBI.getDistance() << " " << tiempo << " " << tiempoBI << " ";
-		//std::cout << "Mejor mejora" << std::endl;
+	//Calculamos la media de las diferencias
+	for(int i=0; i<20; i++){
+		SolutionTSP sol1, sol2;
+		NeighOperatorTSP neigbour;
 
-		myfile << std::endl;
+		generator.generateSol(instance);
+		sol1 = generator.getSolutionTSP();
+		sol2 = neigbour.getNeighSolution(sol1);
 
-		//reloj.start();
-		//sol = local.getOptimal();
-		//reloj.stop();
-		//myfile << sol.getDistance() << " " << reloj.elapsed() << std::endl;
-
-		//Now we print it in the file
+		//Ahora la diferencia
+		media = media + abs(sol1.getDistance() - sol2.getDistance());
 
 	}
+	media = media/20;
+
+
+
+	SimulatedAnnealing simulatedAnn(sol, media);
+
+	for(int i=0; i<iterations; i++){
+	generator.generateSol(instance);
+	sol = generator.getSolutionTSP();
+	//Hacemos uno nuevo por iteración
+	SimulatedAnnealing simulatedAnn(sol, media);
+	
+	simulatedAnn.runSimulatedAnnealing();
+	//Pasamos los resultados a fichero
+	//SolucionFinal MejorSolucion TemperaturaFinal
+	myfile << i << " " << simulatedAnn.getCurrentSolution().getDistance() << " " << simulatedAnn.getBestSolution().getDistance() << " " << simulatedAnn.getTemperature() << std::endl;
+	std::cout << i << " " << simulatedAnn.getCurrentSolution().getDistance() << " " << simulatedAnn.getBestSolution().getDistance() << " " << simulatedAnn.getTemperature() << std::endl;
+
+	}
+
 	reloj2.stop();
 
 	std::cout << reloj2.elapsed()/1000000 << " segundos ha tardado esto" << std::endl;
 
-
-	//For printing it on the console
- 
-	/*
-	std::cout<<std::endl<<"*Primera mejora*"<<std::endl;
-	sol = first.getFirstImprovement();
-	sol.printSol();
-
-	std::cout<<std::endl<<"*Mejor mejora*"<<std::endl;
-	sol = best.getBestImprovement();
-	sol.printSol();
-
-	std::cout<<std::endl<<"*Búsqueda local*"<<std::endl;
-	sol = local.getOptimal();
-	sol.printSol();
-	*/
-
+	//We close the file
+	myfile.close();
 	return 1;
 }

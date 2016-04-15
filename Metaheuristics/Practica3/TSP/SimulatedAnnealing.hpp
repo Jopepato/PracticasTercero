@@ -15,15 +15,13 @@ class SimulatedAnnealing{
 		SolutionTSP currentSolution_;
 		double initialTemperature_;
 		double temperature_;
-		int capacity_;
 
 	public:
 
-		SimulatedAnnealing(SolutionTSP &randomSolution, const int &capacity, double media= 1.0, double k=0.3, double probabilidad=0.9){
+		SimulatedAnnealing(SolutionTSP &randomSolution, double media= 1.0, double k=0.3, double probabilidad=0.9){
 		//Coge una aleatoria para best y current
 			setBestSolution(randomSolution);
 			setCurrentSolution(randomSolution);
-			setCapacity(capacity);
 			setInitialTemperature((-1.0)*media/k*log(probabilidad));
 			//setInitialTemperature(1000);
 			setTemperature(getInitialTemperature());
@@ -67,14 +65,6 @@ class SimulatedAnnealing{
 			initialTemperature_ = temp;
 		};
 
-		inline int getCapacity() const
-		{
-			return capacity_;
-		};
-
-		inline void setCapacity(const int &capacity){
-			capacity_ = capacity;
-		};
 
 
 		//Functions

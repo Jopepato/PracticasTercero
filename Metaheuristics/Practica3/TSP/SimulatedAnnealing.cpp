@@ -1,6 +1,6 @@
 #include "SolutionTSP.hpp"
 #include "SimulatedAnnealing.hpp"
-#include "NeighOperatorKP.hpp"
+#include "NeighOperatorTSP.hpp"
 #include <cstdlib>
 
 void SimulatedAnnealing::freezeTemperature(const int &iteration){
@@ -35,13 +35,13 @@ bool SimulatedAnnealing::acceptSolution(SolutionTSP &neighbour){
 
 void SimulatedAnnealing::runSimulatedAnnealing(){
     SolutionTSP aux = getCurrentSolution();
-    NeighOperatorKP neigh;
+    NeighOperatorTSP neigh;
 
     for(int i =0 ;  i<100000 ; i++){
       aux = neigh.getNeighSolution(getCurrentSolution());
       if(acceptSolution(aux)){
-		setCurrentSolution(aux);
-	  }
+		    setCurrentSolution(aux);
+	     }
 
       if(aux.getDistance() < getBestSolution().getDistance()){
         setBestSolution(aux);
@@ -57,7 +57,7 @@ void SimulatedAnnealing::runSimulatedAnnealing(){
 
 void SimulatedAnnealing::runSimulatedAnnealingToFile(const std::string &filename){
     SolutionTSP aux = getCurrentSolution();
-    NeighOperatorKP neigh;
+    NeighOperatorTSP neigh;
     std::ofstream file;
     file.open(filename.c_str());
 

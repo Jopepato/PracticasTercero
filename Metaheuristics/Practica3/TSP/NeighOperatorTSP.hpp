@@ -3,7 +3,7 @@
 
 #include "SolutionTSP.hpp"
 #include <cstdlib>     /* srand, rand */
-
+#include "SolGeneratorTSP.hpp"
 #include <vector>
 #include <iostream>
 class NeighOperatorTSP{
