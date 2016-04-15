@@ -71,7 +71,7 @@ void SimulatedAnnealing::runSimulatedAnnealingToFile(const std::string &filename
         setBestSolution(aux);
       }
 
-      file<<i<<" "<<getTemperature()<<" "<< getBestSolution().getPrice()<< " " <<getCurrentSolution().getPrice()<<std::endl;
+      file << i << " "<<getTemperature() << " " << getBestSolution().getPrice() << " " << getCurrentSolution().getPrice() << std::endl;
 
       if(i%1000 == 0 ){
         freezeTemperature(i);

@@ -5,6 +5,6 @@ set terminal postscript eps color
 set output "oneIterationGTemp"
 set key right bottom
 set xlabel "Num. Iteracion"
-set ylabel "Temperatura"
-plot 'kk3.txt' using 1:2 t "Temperatura" w l
+set ylabel "Current Solution"
+plot 'unaIteracionGrande.txt' using 1:4 t "Current" w l
 _end_
