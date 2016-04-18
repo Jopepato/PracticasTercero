@@ -13,7 +13,7 @@ void SimulatedAnnealing::freezeTemperature(const int &iteration){
 bool SimulatedAnnealing::acceptSolution(SolutionTSP &neighbour){
 	//Acepta o no? :D
 	double difference =  neighbour.getDistance()- getCurrentSolution().getDistance();
-	double probability = 0;
+	double probability = 0.0f;
 	if(difference < 0){
 		return true;
 	}else{
@@ -61,7 +61,7 @@ void SimulatedAnnealing::runSimulatedAnnealingToFile(const std::string &filename
     std::ofstream file;
     file.open(filename.c_str());
 
-    for(int i =0 ;  i<100000 ; i++){
+    for(int i =0 ;  i<100000; i++){
       aux = neigh.getNeighSolution(getCurrentSolution());
       if(acceptSolution(aux)){
 		setCurrentSolution(aux);
