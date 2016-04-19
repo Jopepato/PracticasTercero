@@ -4,16 +4,20 @@
 #include "SolutionKP.hpp"
 #include "FINeighExploratorKP.hpp"
 #include "InstanceKP.hpp"
+#include <fstream>
 #include <vector>
 
 class Grasp{
 	private:
 		SolutionKP solution_;
+		SolutionKP bestSolution_;
+		InstanceKP instancia_;
 
 	public:
 		Grasp(const InstanceKP &instancia){
 			//TODO
-			getRandomGreedy(instancia);
+			setInstancia(instancia);
+			getRandomGreedy();
 		};
 
 
@@ -25,9 +29,20 @@ class Grasp{
 			solution_ = solution;
 		};
 
-		void getRandomGreedy(const InstanceKP &instancia);
+		inline InstanceKP getInstancia()const{
+			return instancia_;
+		}
+
+		inline void setInstancia(const InstanceKP &instancia){
+			instancia_ = instancia;
+		}
+
+		void getRandomGreedy();
 
 		void muestraElementosGrasp();
+
+		SolutionKP runGraspFile(const std::string &fileName);
+		SolutionKP runGrasp();
 };
 
 

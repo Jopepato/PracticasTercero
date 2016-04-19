@@ -48,30 +48,6 @@ int main(int argc, char ** argv){
 
 	SolGeneratorKP generator(instance);
 
+	//Hacemos una iteracion para guardarla en el fichero
 
-		double media = 0.0;
-
-	//Calculamos la media de las diferencias
-	for(int i=0; i<20; i++){
-		SolutionKP sol1, sol2;
-		NeighOperatorKP neigbour;
-
-		generator.generateSol(instance);
-		sol1 = generator.getSolutionKP();
-		sol2 = neigbour.getNeighSolution(sol1, generator.getWeight());
-
-		//Ahora la diferencia
-		media = media + abs(sol1.getPrice() - sol2.getPrice());
-
-	}
-	media = media/20;
-
-
-	generator.generateSol(instance);
-
-	sol = generator.getSolutionKP();
-
-	SimulatedAnnealing simulatedAnn(sol, generator.getWeight(), media);
-
-	simulatedAnn.runSimulatedAnnealingToFile(nombreFichero);
 }

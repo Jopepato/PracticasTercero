@@ -58,59 +58,10 @@ int main(int argc, char ** argv){
 	instance.readFile();
 
 
-	//We generate the solutions and pass it to a file
-	SolGeneratorKP generator(instance);
-
-
-	std::cout << "\x1b[32mPasando a fichero...\x1b[0m" << std::endl;
-
-	reloj2.start();
-
-	generator.generateSol(instance);
-	sol = generator.getSolutionKP();
-
-
-
-	double media = 0.0;
-
-	//Calculamos la media de las diferencias
-	for(int i=0; i<20; i++){
-		SolutionKP sol1, sol2;
-		NeighOperatorKP neigbour;
-
-		generator.generateSol(instance);
-		sol1 = generator.getSolutionKP();
-		sol2 = neigbour.getNeighSolution(sol1, generator.getWeight());
-
-		//Ahora la diferencia
-		media = media + abs(sol1.getPrice() - sol2.getPrice());
-
-	}
-	media = media/20;
-
-
-
-	SimulatedAnnealing simulatedAnn(sol, generator.getWeight(), media);
-
 	for(int i=0; i<iterations; i++){
-	generator.generateSol(instance);
-	sol = generator.getSolutionKP();
-	//Hacemos uno nuevo por iteración
-	SimulatedAnnealing simulatedAnn(sol, generator.getWeight(), media);
-	
-	simulatedAnn.runSimulatedAnnealing();
-	//Pasamos los resultados a fichero
-	//SolucionFinal MejorSolucion TemperaturaFinal
-	myfile << i << " " << simulatedAnn.getCurrentSolution().getPrice() << " " << simulatedAnn.getBestSolution().getPrice() << " " << simulatedAnn.getTemperature() << std::endl;
-	std::cout << i << " " << simulatedAnn.getCurrentSolution().getPrice() << " " << simulatedAnn.getBestSolution().getPrice() << " " << simulatedAnn.getTemperature() << std::endl;
-
+		
 	}
-
-	reloj2.stop();
-
-	std::cout << reloj2.elapsed()/1000000 << " segundos ha tardado esto" << std::endl;
-
-	//We close the file
+	
 	myfile.close();
 	return 1;
 }

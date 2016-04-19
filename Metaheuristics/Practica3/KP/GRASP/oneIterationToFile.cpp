@@ -4,9 +4,9 @@
 #include <iostream>
 #include <ctime>
 #include <fstream>
-#include "SimulatedAnnealing.hpp"
 #include "ClaseTiempo.hpp"
 #include "NeighOperatorKP.hpp"
+#include "grasp.hpp"
 
 int main(int argc, char ** argv){
 
@@ -46,32 +46,10 @@ int main(int argc, char ** argv){
 
 	instance.readFile();
 
-	SolGeneratorKP generator(instance);
+	Grasp graspito(instance);
 
+	std::cout << "Pasando a fichero! :D" << std::endl;
 
-		double media = 0.0;
+	SolutionKP best = graspito.runGraspFile(nombreFichero);
 
-	//Calculamos la media de las diferencias
-	for(int i=0; i<20; i++){
-		SolutionKP sol1, sol2;
-		NeighOperatorKP neigbour;
-
-		generator.generateSol(instance);
-		sol1 = generator.getSolutionKP();
-		sol2 = neigbour.getNeighSolution(sol1, generator.getWeight());
-
-		//Ahora la diferencia
-		media = media + abs(sol1.getPrice() - sol2.getPrice());
-
-	}
-	media = media/20;
-
-
-	generator.generateSol(instance);
-
-	sol = generator.getSolutionKP();
-
-	SimulatedAnnealing simulatedAnn(sol, generator.getWeight(), media);
-
-	simulatedAnn.runSimulatedAnnealingToFile(nombreFichero);
 }
