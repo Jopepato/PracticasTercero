@@ -4,7 +4,6 @@
 #include <iostream>
 #include <ctime>
 #include <fstream>
-#include "SimulatedAnnealing.hpp"
 #include "ClaseTiempo.hpp"
 #include "NeighOperatorKP.hpp"
 int main(int argc, char ** argv){

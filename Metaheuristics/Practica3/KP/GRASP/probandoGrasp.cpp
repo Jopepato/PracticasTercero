@@ -51,4 +51,6 @@ int main(int argc, char ** argv){
 	instance.readFile();
 
 	Grasp graspito(instance);
+
+	graspito.muestraElementosGrasp();
 }

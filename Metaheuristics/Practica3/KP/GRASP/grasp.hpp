@@ -27,6 +27,7 @@ class Grasp{
 
 		void getRandomGreedy(const InstanceKP &instancia);
 
+		void muestraElementosGrasp();
 };
 
 

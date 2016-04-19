@@ -7,7 +7,7 @@ void Grasp::getRandomGreedy(const InstanceKP &instancia){
 	vector<knapsack> fullVector = instancia.getSolutionKP();
 	vector<int> aux;
 	double capacity = instancia.getCapacity();
-	double percentage = fullVector.size()/10;
+	int percentage = fullVector.size()/10;
 	double fitness = 0;
 	SolGeneratorKP auxSolGen;
 	int auxK;
@@ -15,9 +15,9 @@ void Grasp::getRandomGreedy(const InstanceKP &instancia){
 
 	while(true){
 		//Cogemos las soluciones random
+		aux.clear();
+		for(int i=0; i<percentage; i++){
 
-		for(unsigned int i=0; i<percentage; i++){
-			aux.clear();
 			int random = rand()%fullVector.size();
 			if(fullVector[random].token==false){
 				aux.push_back(random);
@@ -27,7 +27,7 @@ void Grasp::getRandomGreedy(const InstanceKP &instancia){
 		}
 		fitness = fullVector[aux[0]].price/fullVector[aux[0]].weight;
 		//Ahora cogemos el mejor de ese vector
-		for(unsigned int i=1; i<aux.size(); i++){
+		for(unsigned int i=0; i<aux.size(); i++){
 			if(fitness < fullVector[aux[i]].price/fullVector[aux[i]].weight){
 				fitness = fullVector[aux[i]].price/fullVector[aux[i]].weight;
 				auxK = i;
@@ -48,3 +48,17 @@ void Grasp::getRandomGreedy(const InstanceKP &instancia){
 
 	setSolution(solutionFinal);
 };
+
+
+void Grasp::muestraElementosGrasp(){
+	//Muestra los elementos de la solucion inicial por pantalla
+	vector<knapsack> auxV = getSolution().getSolution();
+
+	for(unsigned int i=0; i<auxV.size(); i++){
+		if(auxV[i].token==true){
+			//Imprimimos sus caracteristicas
+			std::cout << "Elemento: " << i << std::endl;
+			std::cout << "Precio: " << auxV[i].price << "\t" << "Peso: " << auxV[i].weight << std::endl;
+		}
+	}
+}
