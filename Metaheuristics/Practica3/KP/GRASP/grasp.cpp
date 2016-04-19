@@ -19,7 +19,7 @@ void Grasp::getRandomGreedy(const InstanceKP &instancia){
 		for(unsigned int i=0; i<percentage; i++){
 			aux.clear();
 			int random = rand()%fullVector.size();
-			if(fullVector[i].token==false){
+			if(fullVector[random].token==false){
 				aux.push_back(random);
 			}else{
 				i--;
