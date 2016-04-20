@@ -67,7 +67,7 @@ int main(int argc, char ** argv){
 
 	for(int i=0; i<iterations; i++){
 		graspito.runGrasp();
-		myfile << i << graspito.getBestSolution().getDistance() << std::endl;
+		myfile << i << " " << graspito.getBestSolution().getDistance() << std::endl;
 	}
 
 	reloj2.stop();
