@@ -84,22 +84,26 @@ SolutionKP Grasp::runGraspFile(const std::string &fileName){
 		std::cout << "Error con el fichero" << std::endl;
 		exit(-1);
 	}
-	//
+	int j=0;
 
-	for(int i=0; i<100; i++){
+	for(int i=0; i<100000; i++){
 		//Pilamos un greedy aleatorio cada vez
-		//getRandomGreedy();
+		j=i;
 		FINeighExploratorKP explorador(getSolution(), getInstancia().getCapacity());
-		SolutionKP auxLocal = explorador.getFirstImprovement();
+		SolutionKP auxLocal = explorador.getFirstImprovement(j);
 
 		//Iteracion PrecioGreed PesoGreed PrecioLocal PesoLocal
 		myfile << i << " " << getSolution().getPrice() << " " << getSolution().getWeight() << " " << auxLocal.getPrice() << " " << auxLocal.getWeight() << std::endl;
 
+
 		//Guardamos el mejor de todas las iteraciones
-		if(aux.getPrice() < auxLocal.getPrice()){
-			aux = auxLocal;
-		}
+
 		setSolution(auxLocal);
+		if(i+1000 == j){
+			//Cambiamos de greedy cada vez que no mejora
+			getRandomGreedy();
+		}
+		i=j;
 
 	}
 	myfile.close();
@@ -108,25 +112,31 @@ SolutionKP Grasp::runGraspFile(const std::string &fileName){
 };
 
 
-SolutionKP Grasp::runGrasp(){
+void Grasp::runGrasp(){
 	//Vamos a hacer 100000 un grasp y una primera mejora y lo guardamos en el ficher
 
 	//Se va quedando con la mejor
-	SolutionKP aux = getSolution();
-	
+	setBestSolution(getSolution());
+	int j=0;
 
 	for(int i=0; i<100000; i++){
+		j=i;
 		//Pilamos un greedy aleatorio cada vez
-		getRandomGreedy();
 		FINeighExploratorKP explorador(getSolution(), getInstancia().getCapacity());
-		SolutionKP auxLocal = explorador.getFirstImprovement();
+		SolutionKP auxLocal = explorador.getFirstImprovement(j);
 		//Guardamos el mejor de todas las iteraciones
-		if(aux.getPrice() < auxLocal.getPrice()){
-			aux = auxLocal;
+
+		setSolution(auxLocal);
+
+		if(i+1000 == j){
+			//Cambiamos de greedy cada vez que no mejora
+			getRandomGreedy();
+		}
+		i=j;
+
+		if(getBestSolution().getPrice() < getSolution().getPrice()){
+			setBestSolution(getSolution());
 		}
 
 	}
-
-	//Devolvemos la mejor solucion encontrada
-	return aux;
 };

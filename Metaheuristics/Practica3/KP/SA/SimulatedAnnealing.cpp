@@ -6,7 +6,6 @@
 void SimulatedAnnealing::freezeTemperature(const int &iteration){
 	//Baja la temperatura
 	setTemperature(getTemperature()*0.91);
-	//setTemperature(getInitialTemperature()/1+log(1+iteration));
 
 }
 

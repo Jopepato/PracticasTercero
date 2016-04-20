@@ -37,12 +37,20 @@ class Grasp{
 			instancia_ = instancia;
 		}
 
+		inline void setBestSolution(const SolutionKP &bestSol){
+			bestSolution_ = bestSol;
+		}
+
+		inline SolutionKP getBestSolution() const{
+			return bestSolution_;
+		}
+
 		void getRandomGreedy();
 
 		void muestraElementosGrasp();
 
 		SolutionKP runGraspFile(const std::string &fileName);
-		SolutionKP runGrasp();
+		void runGrasp();
 };
 
 

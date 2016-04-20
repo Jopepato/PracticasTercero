@@ -2,9 +2,9 @@
 
 cat << _end_ | gnuplot
 set terminal postscript eps color
-set output "oneIterationGTemp"
+set output "oneIterationG10000"
 set key right bottom
 set xlabel "Num. Iteracion"
-set ylabel "Current Solution"
-plot 'esteSi.txt' using 1:4 t "Current" w l
+set ylabel "Distancia"
+plot 'oneIterationDeVerdad.txt' using 1:3 t "Solucion actual" w l
 _end_

@@ -1,23 +1,14 @@
-#include "InstanceKP.hpp"
-#include "SolutionKP.hpp"
-#include "SolGeneratorKP.hpp"
-#include <iostream>
-#include <ctime>
-#include <fstream>
-#include "ClaseTiempo.hpp"
-#include "NeighOperatorKP.hpp"
 #include "grasp.hpp"
+#include <fstream>
+
 int main(int argc, char ** argv){
 	std::string fileName;
-	std::string nombreFichero;
 	int option;
 	SolutionKP sol;
 	srand(time(NULL));
 	int iterations;
 	std::string fileNameWrite;
 	std::ofstream myfile;
-	Clock reloj;
-	Clock reloj2;
 
 	//We check if the parameters are k :D
 	if(argc!=3){
@@ -27,9 +18,9 @@ int main(int argc, char ** argv){
 		//We exit the program
 		exit(-1);
 	}else{
-		nombreFichero = argv[1];
+		fileNameWrite = argv[1];
 		iterations = atoi(argv[2]);
-		myfile.open(nombreFichero.c_str());
+		myfile.open(fileNameWrite.c_str());
 		if(!myfile.is_open()){
 			std::cout << "Error con el fichero" << std::endl;
 			exit(-1);
@@ -58,16 +49,8 @@ int main(int argc, char ** argv){
 	InstanceKP instance(fileName);
 
 	instance.readFile();
+
 	Grasp graspito(instance);
 
-	std::cout << "Pasando a fichero! :D" << std::endl;
-
-	for(int i=0; i<iterations; i++){
-		graspito.runGrasp();
-		myfile << i << " " << graspito.getBestSolution().getPrice() << " " << graspito.getBestSolution().getWeight() << std::endl;	
-	
-	}
-	
-	myfile.close();
-	return 1;
+	graspito.muestraElementosGrasp();
 }
