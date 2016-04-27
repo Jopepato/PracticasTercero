@@ -1,10 +1,12 @@
 #include "Och.hpp"
 
+using namespace std;
+
 void Och::fillMatrix(const int &length){
 	vector<double> aux;
 
-	for(unsigned int i=0; i<length; i++){
-		for(unsigned int j=0; j<length; j++){
+	for(int i=0; i<length; i++){
+		for(int j=0; j<length; j++){
 			if(i==j){
 				aux.push_back(0);
 			}else{
@@ -17,7 +19,7 @@ void Och::fillMatrix(const int &length){
 }
 
 
-void Och::fillDistanceMatrix(const std::vector<node> &nodes){
+void Och::fillDistanceAndHeuristicMatrix(const std::vector<node> &nodes){
 	std::vector<double> distanceVector;
 	double distance;
 	std::vector<double> heuristicVector;
@@ -114,7 +116,9 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 		sumatorioProbabilidades += probabilities[i];
 	}
 
-	double random = rand()%sumatorioProbabilidades;
+	//double random = (double)rand()%sumatorioProbabilidades;
+	double random = (double)rand() / RAND_MAX;
+    random = 0 + random * (sumatorioProbabilidades - 0);
 	double suma=0;
 	int index=0;
 	do{
@@ -128,7 +132,7 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 
 }
 
-bool isInVector(const int &x, const std::vector<node> &caminoHormiga){
+bool Och::isInVector(const int &x, const std::vector<node> &caminoHormiga){
 	for(unsigned int i=0; i<caminoHormiga.size(); i++){
 		if(caminoHormiga[i].index==x){
 			return true;
@@ -146,7 +150,7 @@ void Och::runAnts(){
 		std::vector<node> auxSolution;
 		int inicio = rand()%getOriginal().size();
 		auxSolution.push_back(original_[inicio]);
-		for(unsigned int j=0;auxSolution.size()==getOriginal().size();j++){
+		for(unsigned int j=0; j < getOriginal().size() ;j++){
 			auxSolution.push_back(getNextNode(auxSolution.back().index,auxSolution));
 		}
 		Ant auxAnt;

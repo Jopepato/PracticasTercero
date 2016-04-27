@@ -1,5 +1,6 @@
 #include <vector>
 #include <limits>
+#include <cmath>
 #include "InstanceTSP.hpp"
 #include "SolutionTSP.hpp"
 #include "SolGeneratorTSP.hpp"
@@ -21,9 +22,9 @@ class Och{
 		double vaporizePercentage_;
 		std::vector< std::vector <double> > pheromoneMatrix_;
 		std::vector< std::vector <double> > distanceMatrix_;
-		std::vector< std::vector <double> > heuristicMatix_;
+		std::vector< std::vector <double> > heuristicMatrix_;
 		std::vector<node> original_;
-		std::vector<Ant> hotmiguitas_;
+		std::vector<Ant> hormiguitas_;
 
 	public:
 
@@ -55,7 +56,7 @@ class Och{
 			return alpha_;
 		}
 
-		void setAlpha(const double &beta){
+		void setBeta(const double &beta){
 			beta_ = beta;
 		}
 
@@ -68,7 +69,7 @@ class Och{
 		}
 
 		void setNumAnt(const int &numAnt){
-			numAnt_=numAnt;
+			numAnt_ = numAnt;
 		}
 
 		void setVaporizePercentage(const double &perc){
@@ -79,19 +80,19 @@ class Och{
 			return vaporizePercentage_;
 		}
 
-		void setHormiguitas(const vector<Ant> &hormi){
+		void setHormiguitas(const std::vector<Ant> &hormi){
 			hormiguitas_ = hormi;
 		};
 
-		vector<Ant> getHormiguitas() const{
+		std::vector<Ant> getHormiguitas() const{
 			return hormiguitas_;
 		}
 
-		vector<node> getOriginal() const{
+		std::vector<node> getOriginal() const{
 			return original_;
 		}
 
-		void setOriginal(const vector<node> &orig){
+		void setOriginal(const std::vector<node> &orig){
 			original_ = orig;
 		}
 
@@ -107,7 +108,9 @@ class Och{
 
 		void fillMatrix(const int &length);
 
-		void fillDistanceAndHeuristicMatrix(std::vector<node> &nodes);
+		double aporteArco(const int &x, const int &y);
+
+		void fillDistanceAndHeuristicMatrix(const std::vector<node> &nodes);
 
 		double getProbability();
 
@@ -115,9 +118,11 @@ class Och{
 
 		void refreshPheromoneMatrix();
 
-		node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga);
+		node getNextNode(const int &x, const std::vector<node> &caminoHormiga);
 
 		void getBestAntSolution();
+
+		bool isInVector(const int &x, const std::vector<node> &caminoHormiga);
 
 		~Och(){
 			pheromoneMatrix_.clear();
