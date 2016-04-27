@@ -1,4 +1,5 @@
 #include "Och.hpp"
+#include "SolGeneratorTSP.hpp"
 
 using namespace std;
 
@@ -94,12 +95,15 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 	double sumatorioProbabilidades = 0;
 	vector<double> probabilities;
 	vector<int> indexes;
-
-
+	//CAMBIOS
 	for(unsigned int i=0; i<getOriginal().size(); i++){
 		if(!isInVector(i, caminoHormiga)){
+			//std::cout<<x<<" "<<i<<endl;
+			//std::cout<<pheromoneMatrix_[x][i]<<std::endl;
+
 			//Calculamos el sumatorio que va en el divisor
 			sumatorioDivisor += pow(pheromoneMatrix_[x][i], getAlpha()) * pow(heuristicMatrix_[x][i], getBeta());
+			//std::cout<<"fallo3"<<std::endl;
 		}
 	}
 
@@ -115,7 +119,6 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 	for(unsigned int i=0; i<probabilities.size(); i++){
 		sumatorioProbabilidades += probabilities[i];
 	}
-
 	//double random = (double)rand()%sumatorioProbabilidades;
 	double random = (double)rand() / RAND_MAX;
     random = 0 + random * (sumatorioProbabilidades - 0);
@@ -145,17 +148,24 @@ bool Och::isInVector(const int &x, const std::vector<node> &caminoHormiga){
 //TODO
 void Och::runAnts(){
 	//bucle para lanzar 5 hormigas
+	SolGeneratorTSP generator;
+	//CAMBIOS
+	hormiguitas_.clear();
 	for(int i=0;i<getNumAnt();i++){
-		SolGeneratorTSP generator;
+		
 		std::vector<node> auxSolution;
 		int inicio = rand()%getOriginal().size();
 		auxSolution.push_back(original_[inicio]);
 		for(unsigned int j=0; j < getOriginal().size() ;j++){
-			auxSolution.push_back(getNextNode(auxSolution.back().index,auxSolution));
+			//CAMBIOS
+			auxSolution.push_back(getNextNode(auxSolution.back().index-1,auxSolution));
 		}
 		Ant auxAnt;
 		auxAnt.solution=auxSolution;
 		auxAnt.aportePheromonas=100/(generator.getDistance(auxSolution));
+		auxAnt.distancia=generator.getDistance(auxSolution);
+		//cout<<i<<" Aporte:" <<auxAnt.aportePheromonas<<endl;
+		//cout<<i<<" Distancia: "<<generator.getDistance(auxSolution)<<endl;
 		hormiguitas_.push_back(auxAnt);
 		auxSolution.clear();
 	}
@@ -166,11 +176,15 @@ void Och::runAnts(){
 void Och::getBestAntSolution(){
 	double bestAporte=0;
 	int bestAnt=0;
+	SolGeneratorTSP aux;
+
 	for(int i=0;i<getNumAnt();i++){
 		if(bestAporte<hormiguitas_[i].aportePheromonas){
 			bestAporte=hormiguitas_[i].aportePheromonas;
 			bestAnt=i;
 		}
 	}
-	setBestSolution(hormiguitas_[bestAnt].solution);
+	//CAMBIOS
+	if(aux.getDistance(hormiguitas_[bestAnt].solution) < aux.getDistance(getBestSolution().getSolution()) )
+		setBestSolution(hormiguitas_[bestAnt].solution);
 }

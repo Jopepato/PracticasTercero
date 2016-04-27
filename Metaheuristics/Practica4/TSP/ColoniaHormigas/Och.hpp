@@ -1,3 +1,6 @@
+#ifndef OCH_HPP
+#define OCH_HPP
+
 #include <vector>
 #include <limits>
 #include <cmath>
@@ -5,9 +8,12 @@
 #include "SolutionTSP.hpp"
 #include "SolGeneratorTSP.hpp"
 
+//CAMBIOS
+
 struct Ant{
 	std::vector <node> solution;
 	double aportePheromonas;
+	double distancia;
 };
 
 
@@ -35,6 +41,8 @@ class Och{
 			setBeta(2);
 			setAlpha(1);
 			setNumAnt(5);
+			//CAMBIOS
+			setBestSolution(instance.getSolutionTSP());
 			setOriginal(instance.getSolutionTSP());
 			fillMatrix(instance.getSolutionTSP().size());
 			fillDistanceAndHeuristicMatrix(instance.getSolutionTSP());
@@ -130,3 +138,5 @@ class Och{
 
 
 };
+
+#endif

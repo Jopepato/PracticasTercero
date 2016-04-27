@@ -3,15 +3,16 @@
 #include <iostream>
 #include <ctime>
 #include <fstream>
-#include "grasp.hpp"
+#include "Och.hpp"
 #include "ClaseTiempo.hpp"
 #include "NeighOperatorTSP.hpp"
+
 int main(int argc, char ** argv){
 	std::string fileName;
 	int option;
 	SolutionTSP sol;
 	srand(time(NULL));
-	int iterations;
+	//int iterations;
 	std::string fileNameWrite;
 	std::ofstream myfile;
 	Clock reloj;
@@ -26,7 +27,7 @@ int main(int argc, char ** argv){
 		exit(-1);
 	}else{
 		fileNameWrite = argv[1];
-		iterations = atoi(argv[2]);
+		//iterations = atoi(argv[2]);
 		myfile.open(fileNameWrite.c_str());
 		if(!myfile.is_open()){
 			std::cout << "Error con el fichero" << std::endl;
@@ -54,6 +55,7 @@ int main(int argc, char ** argv){
 	}
 
 	InstanceTSP instance(fileName);
+	SolutionTSP best;
 
 	instance.readFile();
 
@@ -62,13 +64,14 @@ int main(int argc, char ** argv){
 
 	reloj2.start();
 
-
-	Grasp graspito(instance);
-
-	for(int i=0; i<iterations; i++){
-		graspito.runGrasp();
-		myfile << i << " " << graspito.getBestSolution().getDistance() << std::endl;
+	Och algoritmo(instance);
+	for (int i = 0; i < 10000; ++i)
+	{
+		algoritmo.runAnts();
+		best= algoritmo.getBestSolution();
+		std::cout << i << " " << best.getDistance() << std::endl;
 	}
+	
 
 	reloj2.stop();
 
