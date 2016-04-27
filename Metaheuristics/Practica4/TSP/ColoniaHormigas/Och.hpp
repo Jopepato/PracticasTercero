@@ -2,10 +2,11 @@
 #include <limits>
 #include "InstanceTSP.hpp"
 #include "SolutionTSP.hpp"
+#include "SolGeneratorTSP.hpp"
 
 struct Ant{
 	std::vector <node> solution;
-	double aportePheronomonas;
+	double aportePheromonas;
 };
 
 
@@ -15,6 +16,7 @@ class Och{
 		double pheromone_;
 		double alpha_;
 		double beta_;
+		int numAnt_;
 		SolutionTSP bestSolution_;
 		double vaporizePercentage_;
 		std::vector< std::vector <double> > pheromoneMatrix_;
@@ -31,6 +33,7 @@ class Och{
 			setVaporizePercentage(0.1);
 			setBeta(2);
 			setAlpha(1);
+			setNumAnt(5);
 			setOriginal(instance.getSolutionTSP());
 			fillMatrix(instance.getSolutionTSP().size());
 			fillDistanceAndHeuristicMatrix(instance.getSolutionTSP());
@@ -60,6 +63,14 @@ class Och{
 			return beta_;
 		}
 
+		int getNumAnt() const{
+			return numAnt_;
+		}
+
+		void setNumAnt(const int &numAnt){
+			numAnt_=numAnt;
+		}
+
 		void setVaporizePercentage(const double &perc){
 			vaporizePercentage_ = perc;
 		}
@@ -84,6 +95,14 @@ class Och{
 			original_ = orig;
 		}
 
+		SolutionTSP getBestSolution() const{
+			return bestSolution_;
+		}
+
+		void setBestSolution(const std::vector<node> &solution){
+			bestSolution_.setSolution(solution);
+		}
+
 		//Funciones para la construncción y uso de las hormigüitas
 
 		void fillMatrix(const int &length);
@@ -97,6 +116,8 @@ class Och{
 		void refreshPheromoneMatrix();
 
 		node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga);
+
+		void getBestAntSolution();
 
 		~Och(){
 			pheromoneMatrix_.clear();

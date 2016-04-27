@@ -79,7 +79,7 @@ double Och::aporteArco(const int &x, const int &y){
 					}
 				}
 			}
-			
+
 		}//EndForJ
 	}//EndForI
 
@@ -140,7 +140,33 @@ bool isInVector(const int &x, const std::vector<node> &caminoHormiga){
 
 //TODO
 void Och::runAnts(){
+	//bucle para lanzar 5 hormigas
+	for(int i=0;i<getNumAnt();i++){
+		SolGeneratorTSP generator;
+		std::vector<node> auxSolution;
+		int inicio = rand()%getOriginal().size();
+		auxSolution.push_back(original_[inicio]);
+		for(unsigned int j=0;auxSolution.size()==getOriginal().size();j++){
+			auxSolution.push_back(getNextNode(auxSolution.back().index,auxSolution));
+		}
+		Ant auxAnt;
+		auxAnt.solution=auxSolution;
+		auxAnt.aportePheromonas=100/(generator.getDistance(auxSolution));
+		hormiguitas_.push_back(auxAnt);
+		auxSolution.clear();
+	}
+	getBestAntSolution();
+	refreshPheromoneMatrix();
+}
 
-
-
+void Och::getBestAntSolution(){
+	double bestAporte=0;
+	int bestAnt=0;
+	for(int i=0;i<getNumAnt();i++){
+		if(bestAporte<hormiguitas_[i].aportePheromonas){
+			bestAporte=hormiguitas_[i].aportePheromonas;
+			bestAnt=i;
+		}
+	}
+	setBestSolution(hormiguitas_[bestAnt].solution);
 }
