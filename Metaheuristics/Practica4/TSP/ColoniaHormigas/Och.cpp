@@ -73,7 +73,7 @@ double Och::aporteArco(const int &x, const int &y){
 
 			}else{
 				if(j==0){
-					if(auxHormigas[i].solution[j].index== x && (auxHormigas[i].solution[auxHormigas[i].solution.size()-1].index == y || auxHormigas[i].solution[j+1].index == y)){
+					if(auxHormigas[i].solution[j].index == x && (auxHormigas[i].solution[auxHormigas[i].solution.size()-1].index == y || auxHormigas[i].solution[j+1].index == y)){
 						aporte +=auxHormigas[i].aportePheromonas;
 					}
 				}else{
@@ -98,12 +98,8 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 	//CAMBIOS
 	for(unsigned int i=0; i<getOriginal().size(); i++){
 		if(!isInVector(i, caminoHormiga)){
-			//std::cout<<x<<" "<<i<<endl;
-			//std::cout<<pheromoneMatrix_[x][i]<<std::endl;
-
 			//Calculamos el sumatorio que va en el divisor
 			sumatorioDivisor += pow(pheromoneMatrix_[x][i], getAlpha()) * pow(heuristicMatrix_[x][i], getBeta());
-			//std::cout<<"fallo3"<<std::endl;
 		}
 	}
 
@@ -116,34 +112,68 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 		}
 	}
 
+	//Esto estaba aqui para mostrar los indices
+/*
+	std::cout << std::endl << "Indices: " << std::endl;
+	for(unsigned int i=0; i<indexes.size(); i++){
+		std::cout << indexes[i] << " ";
+	}
+	fflush(stdout);
+*/
+
 	for(unsigned int i=0; i<probabilities.size(); i++){
 		sumatorioProbabilidades += probabilities[i];
 	}
 	//double random = (double)rand()%sumatorioProbabilidades;
 	double random = (double)rand() / RAND_MAX;
-    random = 0 + random * (sumatorioProbabilidades - 0);
+    random = random * (sumatorioProbabilidades);
 	double suma=0;
 	int index=0;
+	
+	/*
 	do{
 		//TO DO
 		suma += probabilities[index];
 		index++;
 		//WARNING!
 	}while(suma<random);
+	if(index >= indexes.size()){
+		std::cout << "huehueheu" << index << std::endl;
+	}
+	*/
 
-	return original_[index];
+	//Vamos a hacer la ruleta
+	for(unsigned int i=0; i<probabilities.size(); i++){
+		suma += probabilities[i];
+		if(suma > random){
+			break;
+		}else{
+			index++;
+		}
+	}
+
+	return original_[indexes[index]];
 
 }
 
 bool Och::isInVector(const int &x, const std::vector<node> &caminoHormiga){
 	for(unsigned int i=0; i<caminoHormiga.size(); i++){
-		if(caminoHormiga[i].index==x){
+		if(caminoHormiga[i].index == x){
 			return true;
 		}
 	}
 	return false;
 }
 
+
+void muestraCamino(const std::vector<node> &path){
+
+	//Muestra el camino de la hormiga
+	for(unsigned int i=0; i<path.size(); i++){
+		std::cout << path[i].index << " ";
+	}
+	std::cout << std::endl << std::endl;
+}
 
 //TODO
 void Och::runAnts(){
@@ -156,9 +186,10 @@ void Och::runAnts(){
 		std::vector<node> auxSolution;
 		int inicio = rand()%getOriginal().size();
 		auxSolution.push_back(original_[inicio]);
-		for(unsigned int j=0; j < getOriginal().size() ;j++){
+		for(unsigned int j=1; j < getOriginal().size() ;j++){
+			//Empezamos en 1 porque ya tenemos un nodo metido :D
 			//CAMBIOS
-			auxSolution.push_back(getNextNode(auxSolution.back().index-1,auxSolution));
+			auxSolution.push_back(getNextNode(auxSolution.back().index,auxSolution));
 		}
 		Ant auxAnt;
 		auxAnt.solution=auxSolution;
@@ -166,6 +197,7 @@ void Och::runAnts(){
 		auxAnt.distancia=generator.getDistance(auxSolution);
 		//cout<<i<<" Aporte:" <<auxAnt.aportePheromonas<<endl;
 		//cout<<i<<" Distancia: "<<generator.getDistance(auxSolution)<<endl;
+		//muestraCamino(auxAnt.solution);
 		hormiguitas_.push_back(auxAnt);
 		auxSolution.clear();
 	}
@@ -185,6 +217,7 @@ void Och::getBestAntSolution(){
 		}
 	}
 	//CAMBIOS
-	if(aux.getDistance(hormiguitas_[bestAnt].solution) < aux.getDistance(getBestSolution().getSolution()) )
+	if(aux.getDistance(hormiguitas_[bestAnt].solution) < aux.getDistance(getBestSolution().getSolution()) ){
 		setBestSolution(hormiguitas_[bestAnt].solution);
+	}
 }

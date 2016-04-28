@@ -33,7 +33,7 @@ void InstanceTSP::readFile(){
 		//Now we can do a for, catching the elements
 		for(int i=0; i<nLines; i++){
 			getline(file, line, ' ');
-			aux.index = atoi(line.c_str());
+			aux.index = atoi(line.c_str()) -1;
 			getline(file, line, ' ');
 			//We check for an e
 			found = line.find('e');

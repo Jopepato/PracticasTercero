@@ -12,7 +12,7 @@ int main(int argc, char ** argv){
 	int option;
 	SolutionTSP sol;
 	srand(time(NULL));
-	//int iterations;
+	int iterations;
 	std::string fileNameWrite;
 	std::ofstream myfile;
 	Clock reloj;
@@ -27,7 +27,7 @@ int main(int argc, char ** argv){
 		exit(-1);
 	}else{
 		fileNameWrite = argv[1];
-		//iterations = atoi(argv[2]);
+		iterations = atoi(argv[2]);
 		myfile.open(fileNameWrite.c_str());
 		if(!myfile.is_open()){
 			std::cout << "Error con el fichero" << std::endl;
@@ -65,10 +65,10 @@ int main(int argc, char ** argv){
 	reloj2.start();
 
 	Och algoritmo(instance);
-	for (int i = 0; i < 10000; ++i)
+	for (int i = 0; i < iterations; ++i)
 	{
 		algoritmo.runAnts();
-		best= algoritmo.getBestSolution();
+		best = algoritmo.getBestSolution();
 		std::cout << i << " " << best.getDistance() << std::endl;
 	}
 	

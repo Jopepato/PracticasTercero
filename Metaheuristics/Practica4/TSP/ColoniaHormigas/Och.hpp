@@ -4,6 +4,9 @@
 #include <vector>
 #include <limits>
 #include <cmath>
+#include <iostream>
+#include <stdlib.h>
+#include <cstdio>
 #include "InstanceTSP.hpp"
 #include "SolutionTSP.hpp"
 #include "SolGeneratorTSP.hpp"
