@@ -11,18 +11,21 @@ int main(int argc, char ** argv){
 	std::string fileName;
 	int option;
 	SolutionTSP sol;
+	SolutionTSP primero;
 	srand(time(NULL));
 	int iterations;
 	std::string fileNameWrite;
+	std::string ficheroCaminosHormigas, ficheroSolucionesHormigas;
+	std::string matrizFinal;
 	std::ofstream myfile;
 	Clock reloj;
 	Clock reloj2;
 
 	//We check if the parameters are k :D
-	if(argc!=3){
+	if(argc!=5){
 		//The parameters are wrong
 		std::cout << "La forma de llamar al programa es:" << std::endl;
-		std::cout << "'NombrePrograma' 'NombreFichero' 'NumeroIteraciones'" << std::endl;
+		std::cout << "'NombrePrograma' 'NombreFichero' 'NumeroIteraciones' 'NombreFicheroCaminosHormigas' 'ficheroSolucionesHormigas'" << std::endl;
 		//We exit the program
 		exit(-1);
 	}else{
@@ -33,6 +36,9 @@ int main(int argc, char ** argv){
 			std::cout << "Error con el fichero" << std::endl;
 			exit(-1);
 		}
+		ficheroCaminosHormigas = argv[3];
+		ficheroSolucionesHormigas = argv[4];
+
 	}
 
 	//Ask the user which one we want to read
@@ -67,14 +73,18 @@ int main(int argc, char ** argv){
 	Och algoritmo(instance);
 	for (int i = 0; i < iterations; ++i)
 	{
-		algoritmo.runAnts();
+		algoritmo.runAnts(i, ficheroSolucionesHormigas);
 		best = algoritmo.getBestSolution();
 		std::cout << i << " " << best.getDistance() << std::endl;
+		myfile << i << " " << best.getDistance() << std::endl;
+		if(i==5){
+			primero = best;
+		}
 	}
 	
 
 	reloj2.stop();
-
+	algoritmo.imprimeCamino(primero.getSolution(), best.getSolution(), ficheroCaminosHormigas);
 	std::cout << reloj2.elapsed()/1000000 << " segundos ha tardado esto" << std::endl;
 
 	//We close the file

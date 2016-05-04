@@ -8,16 +8,15 @@
 #include <stdlib.h>
 #include <cstdio>
 #include <fstream>
-#include "InstanceTSP.hpp"
-#include "SolutionTSP.hpp"
-#include "SolGeneratorTSP.hpp"
+#include "InstanceKP.hpp"
+#include "SolutionKP.hpp"
+#include "SolGeneratorKP.hpp"
 
 //CAMBIOS
 
 struct Ant{
-	std::vector <node> solution;
+	std::vector <knapsack> solution;
 	double aportePheromonas;
-	double distancia;
 };
 
 
@@ -28,28 +27,30 @@ class Och{
 		double alpha_;
 		double beta_;
 		int numAnt_;
-		SolutionTSP bestSolution_;
+		double capacity_;
+		SolutionKP bestSolution_;
 		double vaporizePercentage_;
-		std::vector< std::vector <double> > pheromoneMatrix_;
-		std::vector< std::vector <double> > distanceMatrix_;
-		std::vector< std::vector <double> > heuristicMatrix_;
-		std::vector<node> original_;
+		std::vector <double> pheromoneVector_;
+		std::vector <double> distanceVector_;
+		std::vector <double> heuristicVector_;
+		std::vector<knapsack> original_;
 		std::vector<Ant> hormiguitas_;
 
 	public:
 
 
-		Och(const InstanceTSP &instance){
+		Och(const InstanceKP &instance){
 			setPheromone(10);
 			setVaporizePercentage(0.1);
-			setBeta(2);
+			setBeta(1);
 			setAlpha(1);
 			setNumAnt(5);
+			setCapacity(instance.getCapacity());
 			//CAMBIOS
-			setBestSolution(instance.getSolutionTSP());
-			setOriginal(instance.getSolutionTSP());
-			fillMatrix(instance.getSolutionTSP().size());
-			fillDistanceAndHeuristicMatrix(instance.getSolutionTSP());
+			setBestSolution(instance.getSolutionKP());
+			setOriginal(instance.getSolutionKP());
+			fillPheromoneVector(instance.getSolutionKP().size());
+			fillHeuristicVector(instance.getSolutionKP());
 		}
 
 		void setPheromone(const double &pherom){
@@ -62,6 +63,14 @@ class Och{
 
 		void setAlpha(const double &alpha){
 			alpha_ = alpha;
+		}
+		
+		void setCapacity(const double &capacity){
+			capacity_ = capacity;
+		}
+
+		double getCapacity() const{
+			return capacity_;
 		}
 
 		double getAlpha() const{
@@ -100,46 +109,45 @@ class Och{
 			return hormiguitas_;
 		}
 
-		std::vector<node> getOriginal() const{
+		std::vector<knapsack> getOriginal() const{
 			return original_;
 		}
 
-		void setOriginal(const std::vector<node> &orig){
+		void setOriginal(const std::vector<knapsack> &orig){
 			original_ = orig;
 		}
 
-		SolutionTSP getBestSolution() const{
+		SolutionKP getBestSolution() const{
 			return bestSolution_;
 		}
 
-		void setBestSolution(const std::vector<node> &solution){
+		void setBestSolution(const std::vector<knapsack> &solution){
 			bestSolution_.setSolution(solution);
 		}
 
 		//Funciones para la construncción y uso de las hormigüitas
 
-		void fillMatrix(const int &length);
+		void fillPheromoneVector(const int &length);
 
-		double aporteArco(const int &x, const int &y);
+		double aporteArco(const int &x);
 
-		void fillDistanceAndHeuristicMatrix(const std::vector<node> &nodes);
+		void fillHeuristicVector(const std::vector<knapsack> &nodes);
 
 		double getProbability();
 
 		void runAnts(int &iterations, std::string ficheroSolucionesHormigas);
 
-		void refreshPheromoneMatrix();
+		void refreshPheromoneVector();
 
-		node getNextNode(const int &x, const std::vector<node> &caminoHormiga);
+		knapsack getNextNode(const std::vector<knapsack> &caminoHormiga);
 
 		void getBestAntSolution();
 
-		bool isInVector(const int &x, const std::vector<node> &caminoHormiga);
+		bool isInVector(const int &x, const std::vector<knapsack> &caminoHormiga);
 
-		void imprimeCamino(const std::vector<node> &primero, const std::vector<node> &segundo, std::string nombreFicheroCaminos);
 
 		~Och(){
-			pheromoneMatrix_.clear();
+			pheromoneVector_.clear();
 		}
 
 

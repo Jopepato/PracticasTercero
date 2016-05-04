@@ -166,23 +166,26 @@ bool Och::isInVector(const int &x, const std::vector<node> &caminoHormiga){
 }
 
 
-void muestraCamino(const std::vector<node> &path){
+void Och::imprimeCamino(const std::vector<node> &primero, const std::vector<node> &segundo, std::string nombreFicheroCaminos){
 
+	ofstream myfile;
+	myfile.open(nombreFicheroCaminos.c_str());
 	//Muestra el camino de la hormiga
-	for(unsigned int i=0; i<path.size(); i++){
-		std::cout << path[i].index << " ";
+	for(unsigned int i=0; i<primero.size(); i++){
+		myfile << primero[i].x << " " << primero[i].y << " " << segundo[i].x << " " << segundo[i].y << std::endl;
 	}
-	std::cout << std::endl << std::endl;
 }
 
 //TODO
-void Och::runAnts(){
+void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 	//bucle para lanzar 5 hormigas
 	SolGeneratorTSP generator;
+	fstream myfile;
+	myfile.open(ficheroSolucionesHormigas.c_str(), std::fstream::app | std::fstream::out);
 	//CAMBIOS
 	hormiguitas_.clear();
+	myfile << iterations;
 	for(int i=0;i<getNumAnt();i++){
-		
 		std::vector<node> auxSolution;
 		int inicio = rand()%getOriginal().size();
 		auxSolution.push_back(original_[inicio]);
@@ -195,12 +198,12 @@ void Och::runAnts(){
 		auxAnt.solution=auxSolution;
 		auxAnt.aportePheromonas=100/(generator.getDistance(auxSolution));
 		auxAnt.distancia=generator.getDistance(auxSolution);
-		//cout<<i<<" Aporte:" <<auxAnt.aportePheromonas<<endl;
-		//cout<<i<<" Distancia: "<<generator.getDistance(auxSolution)<<endl;
-		//muestraCamino(auxAnt.solution);
+		myfile << " " << auxAnt.distancia;
 		hormiguitas_.push_back(auxAnt);
 		auxSolution.clear();
 	}
+	myfile << std::endl;
+	iterations += 5;
 	getBestAntSolution();
 	refreshPheromoneMatrix();
 }
