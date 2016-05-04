@@ -36,8 +36,8 @@
 			//printSol();
 	};
 
-	int SolGeneratorKP::getWeight(const std::vector<knapsack> &v){
-		int result=0;
+	double SolGeneratorKP::getWeight(const std::vector<knapsack> &v){
+		double result=0;
 		for (unsigned int i = 0; i < v.size(); i++)
 		{
 			if(v[i].token==true)

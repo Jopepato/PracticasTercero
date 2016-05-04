@@ -13,22 +13,24 @@ int main(int argc, char ** argv){
 	SolutionKP sol;
 	srand(time(NULL));
 	int iterations;
-	std::string fileNameWrite;
+	std::string ficheroMejoresSoluciones;
+	std::string ficheroSolucionesHormigas;
 	std::ofstream myfile;
 	Clock reloj;
 	Clock reloj2;
 
 	//We check if the parameters are k :D
-	if(argc!=3){
+	if(argc!=4){
 		//The parameters are wrong
 		std::cout << "La forma de llamar al programa es:" << std::endl;
-		std::cout << "'NombrePrograma' 'NombreFichero' 'NumeroIteraciones'" << std::endl;
+		std::cout << "'NombrePrograma' 'NombreFicheroMejores' 'NumeroIteraciones' 'NombreFicheroHormigas'" << std::endl;
 		//We exit the program
 		exit(-1);
 	}else{
-		fileNameWrite = argv[1];
+		ficheroMejoresSoluciones = argv[1];
 		iterations = atoi(argv[2]);
-		myfile.open(fileNameWrite.c_str());
+		ficheroSolucionesHormigas = argv[3];
+		myfile.open(ficheroMejoresSoluciones.c_str());
 		if(!myfile.is_open()){
 			std::cout << "Error con el fichero" << std::endl;
 			exit(-1);
@@ -73,10 +75,10 @@ int main(int argc, char ** argv){
 	SolutionKP best;
 
 	for(int i=0; i<iterations; i++){
-		hormiga.runAnts(i, fileName);
+		hormiga.runAnts(i, ficheroSolucionesHormigas);
 		best = hormiga.getBestSolution();
 		std::cout << i << " " << best.getPrice() << " " << best.getSolution().size() << std::endl;
-
+		myfile << i << " " << best.getPrice() << " " << best.getWeight() << best.getSolution().size() << std::endl;
 	}
 
 

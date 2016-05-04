@@ -116,12 +116,12 @@ void muestraCamino(vector<knapsack> camino){
 void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 	//bucle para lanzar 5 hormigas
 	SolGeneratorKP generator;
-	//fstream myfile;
-	//myfile.open(ficheroSolucionesHormigas.c_str(), std::fstream::app | std::fstream::out);
+	fstream myfile;
+	myfile.open(ficheroSolucionesHormigas.c_str(), std::fstream::app | std::fstream::out);
 	//CAMBIOS
 	hormiguitas_.clear();
 	knapsack aux;
-	//myfile << iterations;
+	myfile << iterations;
 	for(int i=0;i<getNumAnt();i++){
 		std::vector<knapsack> auxSolution;
 		int inicio = rand()%getOriginal().size();
@@ -142,12 +142,13 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 		Ant auxAnt;
 		auxAnt.solution=auxSolution;
 		auxAnt.aportePheromonas=(generator.getPrice(auxSolution));
-		//myfile << " " << auxAnt.distancia;
+
+		myfile << " " << generator.getPrice(auxSolution);
 		hormiguitas_.push_back(auxAnt);
 		auxSolution.clear();
-		//muestraCamino(auxAnt.solution);
 	}
-	//myfile << std::endl;
+	myfile << std::endl;
+	myfile.close();
 	iterations += 5;
 	getBestAntSolution();
 	refreshPheromoneVector();

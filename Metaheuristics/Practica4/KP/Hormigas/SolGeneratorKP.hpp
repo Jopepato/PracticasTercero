@@ -27,7 +27,9 @@ public:
 	bool compareSol(const std::vector<knapsack> &v, const int &weigth);
 	void generateSol(InstanceKP instancia);
 
-	int getWeight(const std::vector<knapsack> &v);
+	double getWeight(const std::vector<knapsack> &v);
+
+	double getPrice(const std::vector<knapsack> &v);
 
 	inline int getWeight()const{
 		return weightAux_;
@@ -45,7 +47,7 @@ public:
 		return (sol_);
 	}
 
-	double getPrice(const std::vector<knapsack> &v);
+
 };
 
 
