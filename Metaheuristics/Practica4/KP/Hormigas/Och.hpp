@@ -41,7 +41,7 @@ class Och{
 
 		Och(const InstanceKP &instance){
 			setPheromone(10);
-			setVaporizePercentage(0.9);
+			setVaporizePercentage(0.1);
 			setBeta(1);
 			setAlpha(1);
 			setNumAnt(5);
