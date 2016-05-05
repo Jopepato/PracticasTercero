@@ -60,6 +60,7 @@ int main(int argc, char ** argv){
 
 	instance.readFile();
 
+	remove(ficheroSolucionesHormigas.c_str());
 
 	//We generate the solutions and pass it to a file
 	SolGeneratorKP generator(instance);

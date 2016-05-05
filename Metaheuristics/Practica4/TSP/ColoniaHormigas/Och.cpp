@@ -91,7 +91,7 @@ double Och::aporteArco(const int &x, const int &y){
 
 node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 	double probability=0;
-	double sumatorioDivisor = 0;
+	double sumatorioDivisor = 0.1;
 	double sumatorioProbabilidades = 0;
 	vector<double> probabilities;
 	vector<int> indexes;
