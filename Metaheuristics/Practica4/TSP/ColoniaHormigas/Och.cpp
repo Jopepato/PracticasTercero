@@ -102,7 +102,6 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 			sumatorioDivisor += pow(pheromoneMatrix_[x][i], getAlpha()) * pow(heuristicMatrix_[x][i], getBeta());
 		}
 	}
-
 	for(unsigned int i=0; i<getOriginal().size(); i++){
 		if(!isInVector(i, caminoHormiga)){
 			indexes.push_back(i);
@@ -112,45 +111,37 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 		}
 	}
 
-	//Esto estaba aqui para mostrar los indices
-/*
-	std::cout << std::endl << "Indices: " << std::endl;
-	for(unsigned int i=0; i<indexes.size(); i++){
-		std::cout << indexes[i] << " ";
-	}
-	fflush(stdout);
-*/
-
 	for(unsigned int i=0; i<probabilities.size(); i++){
 		sumatorioProbabilidades += probabilities[i];
 	}
-	//double random = (double)rand()%sumatorioProbabilidades;
+
+/*
+	double lower_bound = 0;
+	double upper_bound = sumatorioProbabilidades;
+	std::uniform_real_distribution<double> unif(lower_bound,upper_bound);
+	std::default_random_engine re;
+	double random = unif(re);
+*/
+	
 	double random = (double)rand() / RAND_MAX;
     random = random * (sumatorioProbabilidades);
+
+	//std::cout<<"random ="<<random<<std::endl;
+	//std::cout<<"sumatorioProbabilidades= "<<sumatorioProbabilidades<<std::endl;
+
 	double suma=0;
 	int index=0;
 	
-	/*
-	do{
-		//TO DO
-		suma += probabilities[index];
-		index++;
-		//WARNING!
-	}while(suma<random);
-	if(index >= indexes.size()){
-		std::cout << "huehueheu" << index << std::endl;
-	}
-	*/
-
 	//Vamos a hacer la ruleta
-	for(unsigned int i=0; i<probabilities.size(); i++){
-		suma += probabilities[i];
-		if(suma > random){
-			break;
-		}else{
-			index++;
+		for(unsigned int i=0; i<probabilities.size(); i++){
+			suma += probabilities[i];
+			if(suma >= random){
+				break;
+			}else{
+				index++;
+			}
 		}
-	}
+
 
 	return original_[indexes[index]];
 
@@ -196,7 +187,7 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 		}
 		Ant auxAnt;
 		auxAnt.solution=auxSolution;
-		auxAnt.aportePheromonas=100/(generator.getDistance(auxSolution));
+		auxAnt.aportePheromonas=1000000/(generator.getDistance(auxSolution));
 		auxAnt.distancia=generator.getDistance(auxSolution);
 		myfile << " " << auxAnt.distancia;
 		hormiguitas_.push_back(auxAnt);

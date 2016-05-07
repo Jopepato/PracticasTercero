@@ -38,6 +38,8 @@ int main(int argc, char ** argv){
 		}
 		ficheroCaminosHormigas = argv[3];
 		ficheroSolucionesHormigas = argv[4];
+		remove(ficheroCaminosHormigas.c_str());
+		remove(ficheroSolucionesHormigas.c_str());
 
 	}
 
@@ -75,7 +77,7 @@ int main(int argc, char ** argv){
 	{
 		algoritmo.runAnts(i, ficheroSolucionesHormigas);
 		best = algoritmo.getBestSolution();
-		std::cout << i << " " << best.getDistance() << std::endl;
+		//std::cout << i << " " << best.getDistance() << std::endl;
 		myfile << i << " " << best.getDistance() << std::endl;
 		if(i==5){
 			primero = best;
