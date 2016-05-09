@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <cstdio>
 #include <fstream>
-#include <random>
+#include <algorithm>
 #include "InstanceTSP.hpp"
 #include "SolutionTSP.hpp"
 #include "SolGeneratorTSP.hpp"
@@ -42,10 +42,10 @@ class Och{
 
 		Och(const InstanceTSP &instance){
 			setPheromone(10);
-			setVaporizePercentage(0.2);
-			setBeta(1);
-			setAlpha(5);
-			setNumAnt(5);
+			setVaporizePercentage(0.1);
+			setBeta(2);
+			setAlpha(1);
+			setNumAnt(10);
 			//CAMBIOS
 			setBestSolution(instance.getSolutionTSP());
 			setOriginal(instance.getSolutionTSP());

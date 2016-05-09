@@ -107,7 +107,7 @@ node Och::getNextNode(const int &x, const std::vector<node> &caminoHormiga){
 			indexes.push_back(i);
 			probability = pow(pheromoneMatrix_[x][i], getAlpha()) * pow(heuristicMatrix_[x][i], getBeta());
 			probability = probability/sumatorioDivisor;
-			probabilities.push_back(probability*1000);
+			probabilities.push_back(probability);
 		}
 	}
 
@@ -166,6 +166,12 @@ void Och::imprimeCamino(const std::vector<node> &primero, const std::vector<node
 		myfile << primero[i].x << " " << primero[i].y << " " << segundo[i].x << " " << segundo[i].y << std::endl;
 	}
 }
+bool cmp(double a, double b){
+	if(a<b)
+		return true;
+	else
+		return false;
+}
 
 //TODO
 void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
@@ -173,9 +179,10 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 	SolGeneratorTSP generator;
 	fstream myfile;
 	myfile.open(ficheroSolucionesHormigas.c_str(), std::fstream::app | std::fstream::out);
+	std::vector<double> distAux;
 	//CAMBIOS
 	hormiguitas_.clear();
-	myfile << iterations;
+	myfile << iterations<< " ";
 	for(int i=0;i<getNumAnt();i++){
 		std::vector<node> auxSolution;
 		int inicio = rand()%getOriginal().size();
@@ -187,13 +194,17 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 		}
 		Ant auxAnt;
 		auxAnt.solution=auxSolution;
-		auxAnt.aportePheromonas=1000000/(generator.getDistance(auxSolution));
+		auxAnt.aportePheromonas=1.0/(generator.getDistance(auxSolution));
 		auxAnt.distancia=generator.getDistance(auxSolution);
-		myfile << " " << auxAnt.distancia;
+		distAux.push_back(auxAnt.distancia);
 		hormiguitas_.push_back(auxAnt);
 		auxSolution.clear();
 	}
-	myfile << std::endl;
+	sort(distAux.begin(), distAux.end(), cmp);
+	if(getNumAnt()%2==0)
+		myfile << (distAux[getNumAnt()/2]+distAux[(getNumAnt()/2)+1] )/2<<std::endl;
+	else
+		myfile << distAux[getNumAnt()/2]<<std::endl;
 	iterations += 5;
 	getBestAntSolution();
 	refreshPheromoneMatrix();

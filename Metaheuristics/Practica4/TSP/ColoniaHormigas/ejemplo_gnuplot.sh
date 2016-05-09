@@ -11,7 +11,6 @@ plot 'prueba52.txt' using 1:2 t "Mejor" w l,
 set output "52hormigas"
 set xlabel "Num. Evaluaciones"
 set ylabel "Distancia"
-plot 'hormigas52.txt' using 1:2 t "Hormiga 1" w l, 'hormigas52.txt' using 1:3 t "Hormiga 2" w l, 'hormigas52.txt' using 1:4 t "Hormiga 3" w l, 'hormigas52.txt' using 1:5 t "Hormiga 4" w l, 'hormigas52.txt' using 1:6 t "Hormiga 5" w l
-
+plot 'hormigas52.txt' using 1:2 t "Mediana" w l
 
 _end_
