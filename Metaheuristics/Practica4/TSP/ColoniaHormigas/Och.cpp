@@ -205,7 +205,7 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 		myfile << (distAux[getNumAnt()/2]+distAux[(getNumAnt()/2)+1] )/2<<std::endl;
 	else
 		myfile << distAux[getNumAnt()/2]<<std::endl;
-	iterations += 5;
+	iterations += getNumAnt();
 	getBestAntSolution();
 	refreshPheromoneMatrix();
 }

@@ -82,7 +82,7 @@ knapsack Och::getNextNode(const std::vector<knapsack> &caminoHormiga){
 	//Vamos a hacer la ruleta
 	for(unsigned int i=0; i<probabilities.size(); i++){
 		suma += probabilities[i];
-		if(suma > random){
+		if(suma >= random){
 			break;
 		}else{
 			index++;
@@ -112,12 +112,20 @@ void muestraCamino(vector<knapsack> camino){
 	std::cout << std::endl;
 }
 
+bool cmp(double a, double b){
+	if(a<b)
+		return true;
+	else
+		return false;
+}
+
 //TODO
 void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 	//bucle para lanzar 5 hormigas
 	SolGeneratorKP generator;
 	fstream myfile;
 	myfile.open(ficheroSolucionesHormigas.c_str(), std::fstream::app | std::fstream::out);
+	std::vector<double> vectorPriceAux;
 	//CAMBIOS
 	hormiguitas_.clear();
 	knapsack aux;
@@ -142,11 +150,18 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 		Ant auxAnt;
 		auxAnt.solution=auxSolution;
 		auxAnt.aportePheromonas=(generator.getPrice(auxSolution));
+		vectorPriceAux.push_back(auxAnt.aportePheromonas);
 
-		myfile << " " << generator.getPrice(auxSolution);
 		hormiguitas_.push_back(auxAnt);
 		auxSolution.clear();
 	}
+	sort(vectorPriceAux.begin(), vectorPriceAux.end(), cmp);
+	if(getNumAnt()%2==0)
+		myfile << (vectorPriceAux[getNumAnt()/2]+vectorPriceAux[(getNumAnt()/2)+1] )/2<<std::endl;
+	else
+		myfile << vectorPriceAux[getNumAnt()/2]<<std::endl;	
+
+
 	myfile << std::endl;
 	myfile.close();
 	iterations += 5;
