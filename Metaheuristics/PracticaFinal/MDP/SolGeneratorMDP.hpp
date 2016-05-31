@@ -1,37 +1,38 @@
-#ifndef SOLGENERATORTSP_HPP_
-#define SOLGENERATORTSP_HPP_
+#ifndef SOLGENERATORMDP_HPP_
+#define SOLGENERATORMDP_HPP_
 
-#include "InstanceTSP.hpp"
-#include "SolutionTSP.hpp"
+#include "InstanceMDP.hpp"
+#include "SolutionMDP.hpp"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>
 #include <limits>
 
-class SolGeneratorTSP{
+class SolGeneratorMDP{
 private:
-	double distance_;
 	SolutionMDP sol_;
+	InstanceMDP instancia_;
 public:
 
-	SolGeneratorTSP(){
-		setDistance(0.0);
+	SolGeneratorMDP(){
 		srand(time(NULL));
 	}
 
-	SolGeneratorTSP(const InstanceTSP& instancia){
-		setDistance(std::numeric_limits<double>::infinity());
-		setSolutionTSP(instancia.getSolutionTSP());
+	SolGeneratorMDP(const InstanceMDP& instancia){
 		srand(time(NULL));
+		instancia_ = instancia;
 	}
 
-	void generateSol(InstanceTSP instancia);
+	void generateSol();
 
 	inline void setSolutionMDP(const std::vector<int>& solucion){
 		sol_.setSolution(solucion);
 	}
 
-	inline std::vector<node> getSolutionTSP() const{
+	inline std::vector<int> getSolutionMDPVector() const{
 		return (sol_.getSolution());
+	}
+	inline SolutionMDP getSolutionMDP() const{
+		return(sol_);
 	}
 };
 

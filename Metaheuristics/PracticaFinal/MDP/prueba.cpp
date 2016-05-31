@@ -1,5 +1,6 @@
 #include <iostream>
 #include "InstanceMDP.hpp"
+#include "SolGeneratorMDP.hpp"
 
 int main(){
 	std::string fileName;

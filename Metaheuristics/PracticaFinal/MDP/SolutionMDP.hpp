@@ -1,19 +1,19 @@
-#ifndef SOLUTIONTSP_HPP_
-#define SOLUTIONTSP_HPP_
+#ifndef SOLUTIONMDP_HPP_
+#define SOLUTIONMDP_HPP_
 
 #include <vector>
 
-class SolutionTSP{
+class SolutionMDP{
 
 private:
 		std::vector<int> vectorSol_;
 		std::vector< std::vector<double> > matrizDistancias_;
 public:
-		SolutionTSP(){
+		SolutionMDP(){
 			vectorSol_.clear();
 		}
 
-		SolutionTSP(const std::vector<int> &vectorSol, std::vector< std::vector<double> > matrizDistancias_){
+		SolutionMDP(const std::vector<int> &vectorSol, std::vector< std::vector<double> > matrizDistancias_){
 			setSolution(vectorSol);
 			setMatrizDistancias(matrizDistancias_);
 		}
@@ -37,7 +37,7 @@ public:
 		double getDistanciaSolucion(){
 			//Devuelve la distancia que es la suma de las distancias Ü :D
 			double distancia = 0.0;
-			for(unsigned int i=0; i<vectorSol_.getSize()-1; i++){
+			for(unsigned int i=0; i<vectorSol_.size()-1; i++){
 				distancia = distancia + matrizDistancias_[vectorSol_[i]][vectorSol_[i+1]];
 			}
 
