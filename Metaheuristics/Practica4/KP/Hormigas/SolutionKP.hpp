@@ -5,8 +5,8 @@
 #include <iostream>
 
 struct knapsack{
-	int price;
-	int weight;
+	double price;
+	double weight;
 	bool token;
 	int index;
 };
@@ -52,7 +52,6 @@ public:
 					price += vectorKnapsack_[i].price; 
 				}
 			}
-
 			return price;
 		};
 

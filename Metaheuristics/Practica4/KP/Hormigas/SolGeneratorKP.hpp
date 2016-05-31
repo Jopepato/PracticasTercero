@@ -31,7 +31,7 @@ public:
 
 	double getPrice(const std::vector<knapsack> &v);
 
-	inline int getWeight()const{
+	inline double getWeight()const{
 		return weightAux_;
 	};
 

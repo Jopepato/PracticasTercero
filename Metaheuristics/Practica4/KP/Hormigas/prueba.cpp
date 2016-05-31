@@ -78,8 +78,8 @@ int main(int argc, char ** argv){
 	for(int i=0; i<iterations; i++){
 		hormiga.runAnts(i, ficheroSolucionesHormigas);
 		best = hormiga.getBestSolution();
-		std::cout << i << " " << best.getPrice() << " " << best.getSolution().size() << std::endl;
-		myfile << i << " " << best.getPrice() << " " << best.getWeight() << best.getSolution().size() << std::endl;
+		std::cout << i << " " << best.getPrice() << " " << best.getSolution().size() << " " << best.getWeight() << std::endl;
+		myfile << i << " " << best.getPrice() << " " << best.getWeight() << " " <<best.getSolution().size() << std::endl;
 	}
 
 

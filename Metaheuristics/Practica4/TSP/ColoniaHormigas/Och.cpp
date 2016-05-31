@@ -159,12 +159,14 @@ bool Och::isInVector(const int &x, const std::vector<node> &caminoHormiga){
 
 void Och::imprimeCamino(const std::vector<node> &primero, const std::vector<node> &segundo, std::string nombreFicheroCaminos){
 
-	ofstream myfile;
-	myfile.open(nombreFicheroCaminos.c_str());
+	fstream myfile;
+	myfile.open(nombreFicheroCaminos.c_str(), std::fstream::out);
 	//Muestra el camino de la hormiga
 	for(unsigned int i=0; i<primero.size(); i++){
 		myfile << primero[i].x << " " << primero[i].y << " " << segundo[i].x << " " << segundo[i].y << std::endl;
 	}
+
+	myfile.close();
 }
 bool cmp(double a, double b){
 	if(a<b)

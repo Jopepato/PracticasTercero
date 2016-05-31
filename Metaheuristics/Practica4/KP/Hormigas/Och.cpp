@@ -52,14 +52,14 @@ knapsack Och::getNextNode(const std::vector<knapsack> &caminoHormiga){
 	vector<int> indexes;
 	//CAMBIOS
 	for(unsigned int i=0; i<getOriginal().size(); i++){
-		if(!isInVector(i, caminoHormiga)){
+		if(!isInVector(i+1, caminoHormiga)){
 			//Calculamos el sumatorio que va en el divisor
 			sumatorioDivisor += pow(pheromoneVector_[i], getAlpha()) * pow(heuristicVector_[i], getBeta());
 		}
 	}
 
 	for(unsigned int i=0; i<getOriginal().size(); i++){
-		if(!isInVector(i, caminoHormiga)){
+		if(!isInVector(i+1, caminoHormiga)){
 			indexes.push_back(i);
 			probability = pow(pheromoneVector_[i], getAlpha()) * pow(heuristicVector_[i], getBeta());
 			probability = probability/sumatorioDivisor;
@@ -129,7 +129,7 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 	//CAMBIOS
 	hormiguitas_.clear();
 	knapsack aux;
-	myfile << iterations;
+	myfile << iterations <<  " ";
 	for(int i=0;i<getNumAnt();i++){
 		std::vector<knapsack> auxSolution;
 		int inicio = rand()%getOriginal().size();
@@ -141,25 +141,26 @@ void Och::runAnts(int &iterations, std::string ficheroSolucionesHormigas){
 			//Empezamos en 1 porque ya tenemos un nodo metido :D
 			//CAMBIOS
 			aux = getNextNode(auxSolution);
-			if((generator.getWeight(auxSolution) + aux.weight) > getCapacity()){
-				break;
-			}else{
+			if((generator.getWeight(auxSolution) + aux.weight) < getCapacity()){
 				auxSolution.push_back(aux);
+			}else{	
+				break;
+
 			}
 		}
+
 		Ant auxAnt;
 		auxAnt.solution=auxSolution;
 		auxAnt.aportePheromonas=(generator.getPrice(auxSolution));
 		vectorPriceAux.push_back(auxAnt.aportePheromonas);
-
 		hormiguitas_.push_back(auxAnt);
 		auxSolution.clear();
 	}
 	sort(vectorPriceAux.begin(), vectorPriceAux.end(), cmp);
 	if(getNumAnt()%2==0)
-		myfile << (vectorPriceAux[getNumAnt()/2]+vectorPriceAux[(getNumAnt()/2)+1] )/2<<std::endl;
+		myfile << (vectorPriceAux[getNumAnt()/2]+vectorPriceAux[(getNumAnt()/2)+1] )/2;
 	else
-		myfile << vectorPriceAux[getNumAnt()/2]<<std::endl;	
+		myfile << vectorPriceAux[getNumAnt()/2];
 
 
 	myfile << std::endl;
@@ -184,6 +185,7 @@ void Och::getBestAntSolution(){
 	
 	if(aux.getPrice(hormiguitas_[bestAnt].solution) > aux.getPrice(getBestSolution().getSolution())){
 		setBestSolution(hormiguitas_[bestAnt].solution);
+		muestraCamino(hormiguitas_[bestAnt].solution);
 	}
 
 }

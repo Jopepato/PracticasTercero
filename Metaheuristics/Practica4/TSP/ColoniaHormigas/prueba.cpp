@@ -79,7 +79,7 @@ int main(int argc, char ** argv){
 		best = algoritmo.getBestSolution();
 		std::cout << i << " " << best.getDistance() << std::endl;
 		myfile << i << " " << best.getDistance() << std::endl;
-		if(i==5){
+		if(i==algoritmo.getNumAnt()){
 			primero = best;
 		}
 	}

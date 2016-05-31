@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <cstdio>
 #include <fstream>
+#include <algorithm>
 #include "InstanceKP.hpp"
 #include "SolutionKP.hpp"
 #include "SolGeneratorKP.hpp"
@@ -41,10 +42,10 @@ class Och{
 
 		Och(const InstanceKP &instance){
 			setPheromone(10);
-			setVaporizePercentage(0.1);
+			setVaporizePercentage(0.2);
 			setBeta(1);
 			setAlpha(1);
-			setNumAnt(5);
+			setNumAnt(10);
 			setCapacity(instance.getCapacity());
 			//CAMBIOS
 			setBestSolution(instance.getSolutionKP());
