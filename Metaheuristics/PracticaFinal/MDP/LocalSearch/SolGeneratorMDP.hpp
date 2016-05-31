@@ -21,6 +21,7 @@ public:
 	SolGeneratorMDP(const InstanceMDP& instancia){
 		srand(time(NULL));
 		instancia_ = instancia;
+		sol_.setInstance(instancia);
 	}
 
 	void generateSol();
