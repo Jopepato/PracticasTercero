@@ -22,17 +22,18 @@ class FINeighExploratorMDP{
 		return first_;
 	};
 
-	SolutionMDP getFirstImprovement(){
+	SolutionMDP getFirstImprovement(int &j){
 		SolutionMDP aux = getFirst();
 		NeighOperatorMDP ope;
-
-		for (int i = 0; i < 1000; i++){
+		int i=0;
+		for (i = 0; i < 1000; i++){
 			aux = ope.getNeighSolution(getFirst());
 			if(aux.getDistancia()> getFirst().getDistancia()){
 				setFirst(aux);
 				break;
 			}
 		}
+		j = j+i;
 		return getFirst();
 	};
 

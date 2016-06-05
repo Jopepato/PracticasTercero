@@ -3,6 +3,7 @@
 
 #include "SolutionMDP.hpp"
 #include "InstanceMDP.hpp"
+#include "FINeighExploratorMDP.hpp"
 #include <fstream>
 #include <vector>
 
@@ -46,7 +47,7 @@ class Grasp{
 
 		void getRandomGreedy();
 
-		void runGraspFile(const std::string &fileName);
+		void runGraspFile(const std::string &fileName, int iterations);
 		void runGrasp();
 };
 

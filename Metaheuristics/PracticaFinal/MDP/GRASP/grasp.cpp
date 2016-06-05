@@ -45,8 +45,8 @@ void Grasp::getRandomGreedy(){
 
 };
 
-/*
-void Grasp::runGraspFile(const std::string &fileName){
+
+void Grasp::runGraspFile(const std::string &fileName, int iterations){
 	//Vamos a hacer 100000 un grasp y una primera mejora y lo guardamos en el ficher
 
 	//Se va quedando con la mejor
@@ -59,14 +59,14 @@ void Grasp::runGraspFile(const std::string &fileName){
 	}
 	int j=0;
 
-	for(int i=0; i<100000; i++){
+	for(int i=0; i<iterations; i++){
 		//Pilamos un greedy aleatorio cada vez
 		j=i;
 		FINeighExploratorMDP explorador(getSolution());
 		SolutionMDP auxLocal = explorador.getFirstImprovement(j);
 
 		//Iteracion PrecioGreed PesoGreed PrecioLocal PesoLocal
-		myfile << i << " " << getSolution().getDistance() << " " << auxLocal.getDistance() << std::endl;
+		myfile << i << " " << getSolution().getDistancia() << " " << auxLocal.getDistancia() << std::endl;
 
 
 		//Guardamos el mejor de todas las iteraciones
@@ -106,11 +106,10 @@ void Grasp::runGrasp(){
 		}
 		i=j;
 
-		if(getBestSolution().getDistance() > getSolution().getDistance()){
+		if(getBestSolution().getDistancia() > getSolution().getDistancia()){
 			setBestSolution(getSolution());
 		}
 
 	}
 };
 
-*/

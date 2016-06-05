@@ -6,91 +6,53 @@
 #include "NeighOperatorMDP.hpp"
 #include <fstream>
 
-int main(){
-	std::string fileName, saveFile;
+int main(int argc, char ** argv){
+	std::string fileName, fileNameWrite;
 	std::ofstream myfile;
+	int option, iterations;
 	srand(time(NULL));
 
+
+	if(argc!=3){
+		std::cout << "Comandos mal" << std::endl;
+		std::cout << "Programa iteraciones ficheroSalida" << std::endl;
+		exit(-1);
+	}else{
+		iterations = atoi(argv[1]);
+		fileNameWrite = argv[2];
+	}
 	
-	/*
 	//Ask the user which one we want to read
-	std::cout << "File? " << std::endl << "\t1) 52 nodes" << std::endl <<"\t2) 150 nodes"
-	 << std::endl << "\t3) 2103 nodes" << std::endl;
+	std::cout << "File? " << std::endl << "\t1) 50 " << std::endl <<"\t2) 100 "
+	 << std::endl << "\t3) 150 " << std::endl;
 	std::cin >> option;
 	switch(option){
 		case 1:
-			fileName = "berlin52.tsp";
+			fileName = "GKD-b_19_n50_m15.txt";
 			break;
 		case 2:
-			fileName = "ch150.tsp";
+			fileName = "GKD-b_30_n100_m30.txt";
 			break;
 		case 3:
-			fileName = "d2103.tsp";
+			fileName = "GKD-b_46_n150_m45.txt";
 			break;
 		default:
-			fileName = "berlin52.tsp";
+			fileName = "GKD-b_30_n100_m30.txt";
 			break;
-	}
-*/
-	fileName = "GKD-a_9_n10_m3.txt";
-	saveFile = "output.txt";
-
-	myfile.open(saveFile.c_str());
-		if(!myfile.is_open()){
-			std::cout << "Fichero no ha podido ser abierto" << std::endl;
-			exit(-1);
 	}
 
 	InstanceMDP instance(fileName);
 
 	instance.readFile();
-	instance.imprimirMatriz();
 
-/*
-	SolutionMDP sol1, sol2;
-	double dist1=0.0, dist2=0.0;
 
-	sol1 = solgen.getSolutionMDP();
-	sol2 = sol1;
+	Grasp graspito(instance);
 
-	int cont1=0, cont2=0;
+	graspito.runGraspFile(fileNameWrite, iterations);
 
-	for (int i = 0; i < 1000; ++i)
-	{
-		FINeighExploratorMDP firstImp(sol1);
-		BINeighExploratorMDP bestImp(sol2);
 
-		sol1 = firstImp.getFirstImprovement();
-		sol2 = bestImp.getBestImprovement();
 
-		if(sol1.getDistancia()>dist1){
-			cont1=0;
-			sol1.printSol();		
-			dist1 = sol1.getDistancia();
-			std::cout<<"--->"<<i<<" Iter - First Distancia---> "<< dist1<< std::endl;
-		}else{
-			cont1++;
-			if (cont1>=10)
-				for (int i = 0; i < 5; ++i)
-					sol1 = neighbor.getNeighSolutionOut(sol1);
 
-		}
-
-		if(sol2.getDistancia()>dist2){
-			cont2=0;
-			sol2.printSol();
-			dist2 = sol2.getDistancia();
-			std::cout<<"--->"<<i<<" Iter - Best Distancia---> "<< dist2<< std::endl;
-		}else{
-			cont2++;
-			if (cont2>=10)
-				for (int i = 0; i < 5; ++i)
-					sol2 = neighbor.getNeighSolutionOut(sol2);
-
-		}
-		myfile<<i<<" "<<dist1<<" "<<dist2<<std::endl;
-	}
 	
-	*/
 	return 1;
 }
