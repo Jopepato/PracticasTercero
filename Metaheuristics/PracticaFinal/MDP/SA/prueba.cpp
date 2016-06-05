@@ -14,26 +14,46 @@ int main(int argc, char ** argv){
 	int iterations;
 	std::string fileNameWrite;
 	std::ofstream myfile;
+	int option;
 	Clock reloj;
 	Clock reloj2;
 
 	//We check if the parameters are k :D
-	if(argc!=4){
+	if(argc!=3){
 		//The parameters are wrong
 		std::cout << "La forma de llamar al programa es:" << std::endl;
-		std::cout << "'NombrePrograma' 'NombreFicheroDestino' 'NombreFicheroInstancia' 'NumeroIteraciones'" << std::endl;
+		std::cout << "'NombrePrograma' 'NombreFicheroDestino' 'NumeroIteraciones'" << std::endl;
 		//We exit the program
 		exit(-1);
 	}else{
 		fileNameWrite = argv[1];
-		fileName = argv[2];
-		iterations = atoi(argv[3]);
+		iterations = atoi(argv[2]);
 		myfile.open(fileNameWrite.c_str());
 		if(!myfile.is_open()){
 			std::cout << "Error con el fichero" << std::endl;
 			exit(-1);
 		}
 	}
+	
+	//Ask the user which one we want to read
+	std::cout << "File? " << std::endl << "\t1) 50 " << std::endl <<"\t2) 100 "
+	 << std::endl << "\t3) 150 " << std::endl;
+	std::cin >> option;
+	switch(option){
+		case 1:
+			fileName = "GKD-b_19_n50_m15.txt";
+			break;
+		case 2:
+			fileName = "GKD-b_30_n100_m30.txt";
+			break;
+		case 3:
+			fileName = "GKD-b_46_n150_m45.txt";
+			break;
+		default:
+			fileName = "GKD-b_30_n100_m30.txt";
+			break;
+	}
+
 
 	//Ask the user which one we want to read
 
@@ -78,6 +98,7 @@ int main(int argc, char ** argv){
 	
 
 	SimulatedAnnealing simulatedAnn(sol, media);
+
 
 	for(int i=0; i<iterations; i++){
 		generator.generateSol();

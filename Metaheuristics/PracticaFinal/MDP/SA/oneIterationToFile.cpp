@@ -1,75 +1,79 @@
-#include "InstanceTSP.hpp"
-#include "SolutionTSP.hpp"
-#include "SolGeneratorTSP.hpp"
+#include "InstanceMDP.hpp"
+#include "SolutionMDP.hpp"
+#include "SolGeneratorMDP.hpp"
 #include <iostream>
 #include <ctime>
 #include <fstream>
 #include "SimulatedAnnealing.hpp"
 #include "ClaseTiempo.hpp"
-#include "NeighOperatorTSP.hpp"
+#include "NeighOperatorMDP.hpp"
 
 int main(int argc, char ** argv){
 
 	std::string fileName;
 	int option;
-	SolutionTSP sol;
+	SolutionMDP sol;
 	srand(time(NULL));
 	std::string nombreFichero;
 	if(argc!=2){
 		//Numero de argumentos invalido
-		std::cout << "NombrePrograma Fichero" << std::endl;
+		std::cout << "'NombrePrograma' 'Fichero'" << std::endl;
 		exit(-1);
 	}else{
 		nombreFichero = argv[1];
 	}
 
 
-	std::cout << "File? " << std::endl << "\t1) 52 nodes" << std::endl <<"\t2) 150 nodes"
-	 << std::endl << "\t3) 2103 nodes" << std::endl;
+	//Ask the user which one we want to read
+	std::cout << "File? " << std::endl << "\t1) 50 " << std::endl <<"\t2) 100 "
+	 << std::endl << "\t3) 150 " << std::endl;
 	std::cin >> option;
 	switch(option){
 		case 1:
-			fileName = "berlin52.tsp";
+			fileName = "GKD-b_19_n50_m15.txt";
 			break;
 		case 2:
-			fileName = "ch150.tsp";
+			fileName = "GKD-b_30_n100_m30.txt";
 			break;
 		case 3:
-			fileName = "d2103.tsp";
+			fileName = "GKD-b_46_n150_m45.txt";
 			break;
 		default:
-			fileName = "berlin52.tsp";
+			fileName = "GKD-b_30_n100_m30.txt";
 			break;
 	}
 
-	InstanceTSP instance(fileName);
+
+	InstanceMDP instance(fileName);
 
 	instance.readFile();
 
-	SolGeneratorTSP generator(instance);
-
+	SolGeneratorMDP generator(instance);
 
 	double media = 0.0;
 
 	//Calculamos la media de las diferencias
 	for(int i=0; i<20; i++){
-		SolutionTSP sol1, sol2;
-		NeighOperatorTSP neigbour;
+		SolutionMDP sol1, sol2;
+		NeighOperatorMDP neigbour;
 
-		generator.generateSol(instance);
-		sol1 = generator.getSolutionTSP();
-		sol2 = neigbour.getNeighSolution(sol1);
+		generator.generateSol();
+
+		sol1 = generator.getSolutionMDP();
+		sol1.setInstance(instance);
+		sol2 = neigbour.getNeighSolutionOut(sol1);
 
 		//Ahora la diferencia
-		media = media + abs(sol1.getDistance() - sol2.getDistance());
+		media = media + abs(sol1.getDistancia() - sol2.getDistancia());
 
 	}
 	media = media/20;
 
 
-	generator.generateSol(instance);
+	generator.generateSol();
 
-	sol = generator.getSolutionTSP();
+	sol = generator.getSolutionMDP();
+	sol.setInstance(instance);
 
 	SimulatedAnnealing simulatedAnn(sol, media);
 
