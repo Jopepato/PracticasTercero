@@ -66,7 +66,7 @@ void Grasp::runGraspFile(const std::string &fileName, int iterations){
 		SolutionMDP auxLocal = explorador.getFirstImprovement(j);
 
 		//Iteracion PrecioGreed PesoGreed PrecioLocal PesoLocal
-		myfile << i << " " << getSolution().getDistancia() << " " << auxLocal.getDistancia() << std::endl;
+		myfile << i << " " << getSolution().getDistancia() << std::endl;
 
 
 		//Guardamos el mejor de todas las iteraciones
