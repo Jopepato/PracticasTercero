@@ -34,7 +34,7 @@ int main(int argc, char ** argv){
 			exit(-1);
 		}
 	}
-	
+
 	//Ask the user which one we want to read
 	std::cout << "File? " << std::endl << "\t1) 50 " << std::endl <<"\t2) 100 "
 	 << std::endl << "\t3) 150 " << std::endl;
@@ -95,7 +95,7 @@ int main(int argc, char ** argv){
 	}
 
 	media = media/20;
-	
+
 
 	SimulatedAnnealing simulatedAnn(sol, media);
 
