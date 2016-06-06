@@ -81,7 +81,7 @@ int main(int argc, char ** argv){
 		}else{
 			cont1++;
 			if (cont1>=10)
-				for (int i = 0; i < 5; ++i)
+				for (int i = 0; i < instance.getSize()/10; ++i)
 					sol1 = neighbor.getNeighSolutionOut(sol1);
 
 		}
@@ -92,7 +92,7 @@ int main(int argc, char ** argv){
 		}else{
 			cont2++;
 			if (cont2>=10)
-				for (int i = 0; i < 5; ++i)
+				for (int i = 0; i < instance.getSize()/10; ++i)
 					sol2 = neighbor.getNeighSolutionOut(sol2);
 
 		}
