@@ -64,12 +64,6 @@ int main(int argc, char ** argv){
 
 	Och algoritmo(instance);
 
-	myfile.open(fileNameWrite.c_str());
-		if(!myfile.is_open()){
-			std::cout << "Error con el fichero" << std::endl;
-			exit(-1);
-		}
-
 	for (int i = 0; i < iterations; ++i)
 	{
 		algoritmo.runAnts(i, ficheroSolucionesHormigas);

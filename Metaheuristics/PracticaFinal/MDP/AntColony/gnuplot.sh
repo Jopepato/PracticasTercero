@@ -2,9 +2,9 @@
 
 cat << _end_ | gnuplot
 set terminal postscript eps color
-set output "grafica.eps"
+set output "Och150.eps"
 set key right bottom
 set xlabel "Numero de iteraciones"
-set ylabel "Distancia recorrida"
-plot 'output.txt' using 1:2 t "Primera Mejora" w l, 'output.txt' using 1:3 t "Mejor Mejora" w l
+set ylabel "Diversidad"
+plot 'sol150.txt' using 1:2 t "Mejor solucion" w l, 'horm150.txt' using 1:2 t "Mediana soluciones" w l
 _end_
