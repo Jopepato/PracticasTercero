@@ -61,7 +61,7 @@ void SimulatedAnnealing::runSimulatedAnnealingToFile(const std::string &filename
     std::ofstream file;
     file.open(filename.c_str());
 
-    for(int i =0 ;  i<100000; i++){
+    for(int i =0 ;  i<50000; i++){
       aux = neigh.getNeighSolutionOut(getCurrentSolution());
       if(acceptSolution(aux)){
 				setCurrentSolution(aux);
