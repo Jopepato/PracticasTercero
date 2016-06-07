@@ -34,12 +34,16 @@ void Grasp::getRandomGreedy(){
 				nodoAQuitar = random;		
 			}
 		}
-
 		//Ya tenemos el vector que vamos a meter
 		aux.push_back(fullVector[nodoAQuitar]);
-		fullVector.erase(fullVector.begin()+nodoAQuitar);
+		//cout << nodoAQuitar << endl;
+		distancia= 0;
+		fflush(stdout);
+		fullVector.erase(fullVector.begin()+(nodoAQuitar-1));
 	}
 
+	fullVector.clear();
+	fullVector.clear();
 	SolutionMDP solucion(aux, getInstancia());
 	setSolution(solucion);
 
