@@ -86,12 +86,10 @@ int main(int argc, char ** argv){
 		BINeighExploratorMDP bestImp(sol2);
 
 		sol1 = firstImp.getFirstImprovement();
-		sol2 = bestImp.getBestImprovement();
 
 			dist1 = sol1.getDistancia();
-			dist2 = sol2.getDistancia();
 
-		myfile<<i<<" "<<dist1<<" "<<dist2<<std::endl;
+		myfile<<i << " "<<dist1 << std::endl;
 	}
 	
 	return 1;

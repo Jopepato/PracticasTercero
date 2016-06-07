@@ -27,7 +27,7 @@ class FINeighExploratorMDP{
 		NeighOperatorMDP ope;
 
 		for (int i = 0; i < 1000; i++){
-			aux = ope.getNeighSolution(getFirst());
+			aux = ope.getNeighSolutionOut(getFirst());
 			if(aux.getDistancia()> getFirst().getDistancia()){
 				setFirst(aux);
 				break;
