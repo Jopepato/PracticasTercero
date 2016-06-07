@@ -15,12 +15,8 @@ vector<int> fillVector(const int &size){
 
 void Grasp::getRandomGreedy(){
 	//Crea un randomGreedy
-
-	vector<int> fullVector;
-	for(int i=0; i<getInstancia().getSize(); i++){
-		fullVector.push_back(i);
-	}
-
+	InstanceMDP instancia = getInstancia();
+	vector<int> fullVector = fillVector(getInstancia().getSize());
 	vector<int> aux;
 	int nodoAQuitar;
 	double distancia = 0.0;
@@ -47,8 +43,8 @@ void Grasp::getRandomGreedy(){
 	}
 
 	fullVector.clear();
+	fullVector.clear();
 	SolutionMDP solucion(aux, getInstancia());
-	aux.clear();
 	setSolution(solucion);
 
 };
@@ -90,7 +86,6 @@ void Grasp::runGraspFile(const std::string &fileName, int iterations){
 	myfile.close();
 	//Devolvemos la mejor solucion encontrada
 };
-
 
 
 void Grasp::runGrasp(){

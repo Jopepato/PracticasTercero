@@ -49,7 +49,6 @@ class Grasp{
 
 		void runGraspFile(const std::string &fileName, int iterations);
 		void runGrasp();
-
 };
 
 
