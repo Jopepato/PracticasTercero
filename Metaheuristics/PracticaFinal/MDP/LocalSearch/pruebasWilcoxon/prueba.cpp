@@ -27,7 +27,7 @@ int main(int argc, char ** argv){
 
 	//Ask the user which one we want to read
 	std::cout << "File? " << std::endl << "\t1) 50 m5" << std::endl <<"\t2) 50 m15"
-	 << std::endl << "\t3) 100 m10 \t4) 125 m12 \t5) 125 m37 \t6) 150 m15 \t7) 150 m45 \t 25 m7" << std::endl;
+	 << std::endl << "\t3) 100 m10 \t4) 125 m12 \t5) 125 m37 \t6) 150 m15 \t7) 150 m45 \t8) 25 m7" << std::endl;
 	std::cin >> option;
 	switch(option){
 		case 1:
