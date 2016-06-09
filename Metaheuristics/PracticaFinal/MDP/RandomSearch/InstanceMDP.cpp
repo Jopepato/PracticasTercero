@@ -46,7 +46,6 @@ void InstanceMDP::readFile(){
 
 	}else{
 		std::cout << "An error has ocurred" << std::endl;
-		//WASTED
 		exit(EXIT_FAILURE);
 	}
 

@@ -23,6 +23,7 @@ public:
 		instancia_ = instancia;
 	}
 
+	//Generates a random solution
 	void generateSol();
 
 	inline void setSolutionMDP(const std::vector<int>& solucion){
@@ -36,6 +37,7 @@ public:
 		return(sol_);
 	}
 
+	//Print the vector solution
 	inline void printSol(){
 	std::vector<int> auxV = sol_.getSolution();
 		for(unsigned int i=0; i<auxV.size(); i++){

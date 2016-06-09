@@ -29,16 +29,6 @@ public:
 			vectorSol_=vectorSol;
 		};
 
-/*
-		std::vector< std::vector<double> > getMatrizDistancias()const{
-			return matrizDistancias_;
-		}
-
-		void setMatrizDistancias(const std::vector< std::vector<double> > &matriz){
-
-		}
-*/
-
 		inline InstanceMDP getInstance()const{
 			return instance_;
 		}
@@ -48,7 +38,7 @@ public:
 		}
 
 		double getDistancia(){
-			//Devuelve la distancia que es la suma de las distancias Ü :D
+			//Devuelve la diversidad que es la suma de las diversidades entre elementos
 			double distancia = 0.0;
 			for(unsigned int i=0; i<vectorSol_.size()-1; i++){
 				distancia = distancia + getInstance().getMatriz()[vectorSol_[i]][vectorSol_[i+1]];

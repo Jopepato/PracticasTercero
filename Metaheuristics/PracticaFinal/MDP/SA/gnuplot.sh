@@ -2,10 +2,9 @@
 
 cat << _end_ | gnuplot
 set terminal postscript eps color
-set output "SA50_1.eps"
+set output "SA150_1_sinLog.eps"
 set key right bottom
 set xlabel "Numero de iteraciones"
 set ylabel "Diversidad"
-set logscale x
-plot 'SA50_1.txt' using 1:3 t "Mejor solucion" w l, 'SA50_1.txt' using 1:4 t "Solucion actual" w l
+plot 'SA150_1.txt' using 1:2 t "Temperatura" w l
 _end_

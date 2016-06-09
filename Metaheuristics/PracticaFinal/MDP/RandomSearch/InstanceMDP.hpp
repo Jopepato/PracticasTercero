@@ -31,7 +31,7 @@ class InstanceMDP{
 		std::string getFilename() const{
 			return filename_;
 		}
-
+		//Get the diversity matrix
 		std::vector< std::vector<double> > getMatriz()const{
 			return matrizInstancia_;
 		}
@@ -56,6 +56,7 @@ class InstanceMDP{
 			size_ = size;
 		}
 
+		//Read the file of the instance and save the matrix and vector
 		void readFile();
 		void imprimirMatriz();
 
